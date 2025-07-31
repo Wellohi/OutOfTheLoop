@@ -15,7 +15,7 @@ from game_logic import setup_game, game_words
 class CategoryScreen(Screen):
     def __init__(self, **kwargs):
         super(CategoryScreen, self).__init__(**kwargs)
-        main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+        main_layout = BoxLayout(orientation='vertical', padding=30, spacing=30)
         
         title_label = Label(text="Escolha uma categoria")
 

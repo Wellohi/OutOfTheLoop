@@ -3,6 +3,7 @@ from kivy.uix.boxlayout import BoxLayout    # The layout to arrange widgets
 from kivy.uix.label import Label            # For displaying text
 from kivy.uix.button import Button          # For buttons
 from kivy.uix.screenmanager import Screen
+from kivy.clock import Clock
 
 # --- Import da Logica do Jogo --- #
 # Importa-se a função setup_game e a lista de palabras do arquivo app.py
@@ -30,6 +31,18 @@ class RevealScreen(Screen):
     
     # Esse método é chamado pelo Kiby quando trocamos para essa tela
     def on_enter(self):
+        """
+        Esse método agenda o setup screen para rodar no próximo frame.
+        Isso previne a tela dar folickering com contexyo anteriores durante a transição.
+        O argumento 'dt' é requirido pelo Clock, mas não é usado.
+        """
+        Clock.schedule_once(self.setup_screen)
+        
+        
+    def setup_screen(self,dt):
+        """
+        Esse método contem toa a logica que é usada para no on_enter.
+        """
         # Pega o game_state da instância do app principal
         self.game_state = App.get_running_app().game_state
         self.current_player_index = 0
