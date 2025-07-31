@@ -33,9 +33,7 @@ class SetupScreen(Screen):
         
         # Criar as widgets necessárias
         # Título da label
-        title_label = Label(text="Fora da Rodada", font_size='24sp', bold=True, size_hint_y=None, height=40)
-        # A label e o input do texto para o número de jogadores
-        players_label = Label(text="Digite o nome dos jogadores: ", size_hint_y=None, height=30)
+        title_label = Label(text="Digite o nome dos jogadores", font_size='24sp', bold=True, size_hint_y=None, height=40)
         
         # --- Sessão Name Input Dinãmico --- #
         
@@ -69,33 +67,16 @@ class SetupScreen(Screen):
         # --- Seleção de Categoria --- #
         
         # Um label e um spinner para escolher a categoria
-        category_label = Label(text="Escolha uma Categoria: ", size_hint_y=None, height=30)
-        # O spinner mostra o valor padrão e permite escolher da lista;
-        # Pegamos esse nome da categoria diretamente da importação do dicionário 'game_words'
-        self.categoria_spinner = Spinner(
-            text=list(game_words.keys())[0],
-            values=list(game_words.keys()),
-            size_hint_y=None,
-            height=44
-        )
-    
-        # Botão para iniciar o jogo
-        start_button = Button(text='Iniciar Jogo', font_size='20sp', size_hint_y=None, height=50)
-        # Essa é a chave: 'vincular' os botões em evento 'on_press' para o método self.start_game 
-        # Quando o botão é pressionado,Kivy vai automaticamente chamar essa função
-        start_button.bind(on_press=self.start_game_button_pressed)
-        # Label para mostrar mensagens de erro ao usuário.
-        self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=30) # Texto em vermelho
-
+        continue_button = Button(text="Continuar", font_size='20sp', size_hint_y=None, height=50)
+        continue_button.bind(on_press=self.proceed_to_category)
         
+        self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=30)
+    
         # Adicionar os widgets ao layout na ordem que queremos que apareça
         main_layout.add_widget(title_label)
-        main_layout.add_widget(players_label)
         main_layout.add_widget(scroll_view)
         main_layout.add_widget(button_layout)
-        main_layout.add_widget(category_label)
-        main_layout.add_widget(self.categoria_spinner)
-        main_layout.add_widget(start_button)
+        main_layout.add_widget(continue_button)
         main_layout.add_widget(self.status_label)
         # Finalmente, adicionar o layout a screen 
         self.add_widget(main_layout)
@@ -120,11 +101,21 @@ class SetupScreen(Screen):
             self.names_layout.remove_widget(input_to_remove)
             # Desabilita o botão de remover se tivermos o mínimo de 3
             self.remove_button.disabled = len(self.name_inputs) <= 3
-                     
-    
+            
+    def proceed_to_category(self, instance):
+        """
+        Valida nomes, salva eles no app e troca de tela
+        """
+        self.status_label.text = ""        
+        player_names = [widget.text.strip() for widget in self.name_inputs]
         
-    def start_game_button_pressed(self, instance):
-        # Função que vai chamar o método start_game principal do app  
-        # 'self.manager.parent' é uma forma de acessar a instancia proincipal do APP de uma tela
-        App.get_running_app().start_game()
+        if any(not name for name in player_names):
+            self.status_label.text = "Ao menos 3 jogadores devem ser adicionados"
+            return     
+    
+        app = App.get_running_app()
+        app.player_names = player_names
+        
+        # Mudar para próxima tela
+        self.manager.current = 'category'
    
