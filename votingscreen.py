@@ -4,6 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label            # For displaying text
 from kivy.uix.button import Button          # For buttons
 from kivy.uix.screenmanager import Screen
+from kivy.clock import Clock
 
 # -- TELA DE VOTAÇÃO --- #
 class VotingScreen(Screen):
@@ -11,7 +12,7 @@ class VotingScreen(Screen):
         super(VotingScreen, self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
     
-        self.title_label = Label(text='Hora de Votar', font_size='24sp', bold=True)
+        self.title_label = Label(text='', font_size='24sp', bold=True)
         self.buttons_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
                 
         self.main_layout.add_widget(self.title_label)
@@ -26,7 +27,13 @@ class VotingScreen(Screen):
         
     def on_enter(self):
         """
-        Este método pe chamado quando a tela aparece. É aqui que os botões são criados. 
+        Agenda a tela setup para rodar no próximo frame, prevenindo flicker. 
+        """
+        Clock.schedule_once(self.setup_screen)
+        
+    def setup_screen(self,dt):
+        """
+        Esse método contem a lógica que é usada para estar no on_enter.
         """
         app = App.get_running_app()
         # Armazena o estado do jogo na instância da tela

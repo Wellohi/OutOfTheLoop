@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.clock import Clock
 
 # --- Tela de resultados finais --- #
 
@@ -26,7 +27,13 @@ class ResultsScreen(Screen):
         
     def on_enter(self):
         """
-        Esse método é chamado quando a tela aparece, para mostrar os resultados
+        Esse método contem a lógica que é usada para estar no on_enter.
+        """
+        Clock.schedule_once(self.setup_screen)
+        
+    def setup_screen(self, dt):
+        """
+        Método que lida com reveal state inicial.
         """
         app = App.get_running_app()
         
@@ -35,12 +42,12 @@ class ResultsScreen(Screen):
         self.result_label.text = result_text
         self.result_label.markup = True
         
+        # Garante que o layout esta no estado correto para iniciar a revelação
+        if self.play_again_button.parent:
+            self.main_layout.remove_widget(self.play_again_button)
+        if not self.reveal_impostor_button.parent:
+            self.main_layout.add_widget(self.reveal_impostor_button)
         # Remove qualquer botão que possa esta alí vindo do jogo anterior
-        self.main_layout.remove_widget(self.play_again_button)
-        self.main_layout.remove_widget(self.reveal_impostor_button)
-        #adiciona o botão correto para esse estado
-        self.main_layout.add_widget(self.reveal_impostor_button)
-        
     def show_final_results(self, instance):
         """
         Esse método lida com o estado final de revelação

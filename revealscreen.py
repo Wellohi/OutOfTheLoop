@@ -5,12 +5,6 @@ from kivy.uix.button import Button          # For buttons
 from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 
-# --- Import da Logica do Jogo --- #
-# Importa-se a função setup_game e a lista de palabras do arquivo app.py
-# Garanta que o app.py esteja na mesma pasta que esse arquivo
-
-from game_logic import setup_game, game_words
-
 # --- Tela de revelação --- #        
 
 class RevealScreen(Screen):
@@ -19,15 +13,19 @@ class RevealScreen(Screen):
         self.layout = BoxLayout(orientation='vertical', padding=30, spacing=20)
         # Esses são os widgets que vão ser mostrados e escondidos
         self.info_label = Label(text="", font_size='24sp', halign='center')
+        # Cria dois botões separados
         self.action_button = Button(text="Toque para Revelar", font_size='20sp')
         self.action_button.bind(on_press=self.handle_action)
+        
         self.layout.add_widget(self.info_label)
         self.layout.add_widget(self.action_button)
+        
         self.add_widget(self.layout)
         # É preciso manter o estado do jogador atual e o game_state
         self.game_sate = None
         self.current_player_index = 0
         self.word_is_hidden = True
+        self.reveal_phase_complete = False
     
     # Esse método é chamado pelo Kiby quando trocamos para essa tela
     def on_enter(self):
@@ -41,21 +39,16 @@ class RevealScreen(Screen):
         
     def setup_screen(self,dt):
         """
-        Esse método contem toa a logica que é usada para no on_enter.
+        Esse método contem toda a logica que é usada para no on_enter.
         """
         # Pega o game_state da instância do app principal
         self.game_state = App.get_running_app().game_state
         self.current_player_index = 0
         self.word_is_hidden = True
-        self.action_button.disabled = False
-        # Reseta o botão para seu estado inicial toda vez que a tela é exibida
-        # Remove a vinculação com a função 'go_to_voting' (a partir da segunda rodada de jogo)
-        self.action_button.unbind(on_press=self.go_to_voting)
-        # Garente que a vinculação correta em 'handle_action' esteja ativa
-        self.action_button.bind(on_press=self.handle_action)
-        # Seta a tela para o primeiro jogador
-        self.update_display_for_next_player()
+        self.reveal_phase_complete = False
         
+        self.update_display_for_next_player()
+            
     def update_display_for_next_player(self):
         player_name = self.game_state[self.current_player_index]['name']
         self.info_label.text = f"Jogador {player_name}, sua vez. \n\n Passe o celular para ele."
@@ -63,6 +56,13 @@ class RevealScreen(Screen):
         self.word_is_hidden = True
         
     def handle_action(self, instance):
+        """
+        Essa função lida com todas as açoes para essa tela, checando o estado da flag 'reveal_phase_complete'
+        """
+        if self.reveal_phase_complete:
+            self.manager.current = 'voting'
+            return
+        
         if self.word_is_hidden:
             # Revela a palavra
             player_data = self.game_state[self.current_player_index]
@@ -81,10 +81,11 @@ class RevealScreen(Screen):
                 # Todos jogadores viram a palavra
                 self.info_label.text = "Todos jogadores viram a palavra!\n\n Que começe a rodada de perguntas"
                 # Botão para levar a tela de votação
-                self.action_button.text = "Ir para a Votação"
-                self.action_button.unbind(on_press=self.handle_action) # Desvincula a função antiga
-                self.action_button.bind(on_press=self.go_to_voting) # Vincula a nova função
+                self.action_button.text = "Ir para votação"
+                self.reveal_phase_complete = True
+                # self.layout.remove_widget(self.action_button) # Desvincula a função antiga
+                # self.layout.add_widget(self.go_to_voting_button) # Vincula a nova função
                 
-    def go_to_voting(self, instance):
-        # função para trocar para tela de votação
-        self.manager.current = 'voting'
+    # def go_to_voting(self, instance):
+    #     # função para trocar para tela de votação
+    #     self.manager.current = 'voting'
