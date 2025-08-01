@@ -1,12 +1,7 @@
 import random
 
+from categories import game_words
 
-# uma lista de palavras para testar o jogo
-game_words = {
-    "Animal": ['Leão', 'Pato', 'Papagaio', 'Flamingo', 'Ornitorrinco', 'Tamanduá'],
-    "Comida": ['Arroz carreteiro', 'Estrogonofe de frango', 'Macarrão', 'Panqueca', 'Almondegas', 'Bolo de cenoura com cobertura de chocolate'],
-    "Objeto": ['Grampeador', 'Relogio de pendulo', 'Canivete', 'Lanterna', 'Garrafa térmica', 'Lampião']
-}
 
 def setup_game(player_names, chosen_category): # game_words
     """

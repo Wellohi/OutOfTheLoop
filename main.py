@@ -11,7 +11,8 @@ from resultscreen import ResultsScreen
 # Importa-se a função setup_game e a lista de palabras do arquivo app.py
 # Garanta que o app.py esteja na mesma pasta que esse arquivo
 
-from game_logic import setup_game, game_words
+from game_logic import setup_game
+from categories import game_words
 
         
 # --- Classe Principal do App --- #
