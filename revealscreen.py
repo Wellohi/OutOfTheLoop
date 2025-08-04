@@ -60,7 +60,7 @@ class RevealScreen(Screen):
         Essa função lida com todas as açoes para essa tela, checando o estado da flag 'reveal_phase_complete'
         """
         if self.reveal_phase_complete:
-            self.manager.current = 'voting'
+            self.manager.current = 'question'
             return
         
         if self.word_is_hidden:
@@ -81,7 +81,7 @@ class RevealScreen(Screen):
                 # Todos jogadores viram a palavra
                 self.info_label.text = "Todos jogadores viram a palavra!\n\n Que começe a rodada de perguntas"
                 # Botão para levar a tela de votação
-                self.action_button.text = "Ir para votação"
+                self.action_button.text = "Iniciar Rodada de Perguntas"
                 self.reveal_phase_complete = True
                 # self.layout.remove_widget(self.action_button) # Desvincula a função antiga
                 # self.layout.add_widget(self.go_to_voting_button) # Vincula a nova função

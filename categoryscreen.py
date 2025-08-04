@@ -15,10 +15,11 @@ from game_logic import setup_game, game_words
 class CategoryScreen(Screen):
     def __init__(self, **kwargs):
         super(CategoryScreen, self).__init__(**kwargs)
-        main_layout = BoxLayout(orientation='vertical', padding=30, spacing=30)
+        main_layout = BoxLayout(orientation='vertical', padding=20, spacing=30)
         
-        title_label = Label(text="Escolha uma categoria")
+        title_label = Label(text="Configurações do Jogo", font_size='24sp', bold=True)
 
+        category_label = Label(text="Escolha uma categoria")
         # Pega a lista da instancia main app para popular o spinner
         game_words = App.get_running_app().game_words
         # O spinner mostra o valor padrão e permite escolher da lista;
@@ -29,6 +30,16 @@ class CategoryScreen(Screen):
             size_hint_y=None,
             height=44
         )
+        
+        # --- Seleção de Rounds --- #
+        rounds_label = Label(text="Rodadas de perguntas?")
+        self.rounds_spinner = Spinner(
+            text='1', # Valor padrão
+            values=('1', '2', '3'),
+            size_hint_y=None,
+            height=44
+        )
+        
         # Botão para iniciar o jogo
         start_button = Button(text='Iniciar Jogo', font_size='20sp')
         # Essa é a chave: 'vincular' os botões em evento 'on_press' para o método self.start_game 
@@ -36,7 +47,10 @@ class CategoryScreen(Screen):
         start_button.bind(on_press=self.start_game_button_pressed)
         
         main_layout.add_widget(title_label)
+        main_layout.add_widget(category_label)
         main_layout.add_widget(self.category_spinner)
+        main_layout.add_widget(rounds_label)
+        main_layout.add_widget(self.rounds_spinner)
         main_layout.add_widget(start_button)
         
         self.add_widget(main_layout)
