@@ -72,10 +72,10 @@ class OutOfTheLoopApp(App):
             # Nome de jogadores agora são lidos do app property
             player_names = self.player_names
             # Categoria é lido da instancia category_screen
-            self.chosen_category = self.category_screen.category_spinner.text
-            self.num_rounds = int(self.category_screen.rounds_spinner.text)
+            chosen_category = self.chosen_category
+            self.num_rounds = self.num_rounds
             
-            self.game_state = setup_game(player_names, self.chosen_category)
+            self.game_state = setup_game(player_names, chosen_category)
             
             if self.game_state:
                 self.generate_question_rounds()
