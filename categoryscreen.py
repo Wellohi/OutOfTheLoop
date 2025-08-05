@@ -26,7 +26,7 @@ class CategoryScreen(Screen):
         self.selected_round = None
         self.category_buttons = []
         self.round_buttons = []
-        
+                
         # Pega a lista da instancia main app para popular o spinner
         game_words = App.get_running_app().game_words
         for category_name in game_words.keys():
@@ -40,30 +40,19 @@ class CategoryScreen(Screen):
             btn.bind(on_press=self.select_round)
             self.round_buttons.append(btn)
             self.rounds_grid.add_widget(btn)
-            
-        # O spinner mostra o valor padrão e permite escolher da lista;
-        # Pegamos esse nome da categoria diretamente da importação do dicionário 'game_words'
-        # self.category_spinner = Spinner(
-        #     text=list(game_words.keys())[0],
-        #     values=list(game_words.keys()),
-        #     size_hint_y=None,
-        #     height=44
-        # )
         
-        # # --- Seleção de Rounds --- #
-        # rounds_label = Label(text="Rodadas de perguntas?")
-        # self.rounds_spinner = Spinner(
-        #     text='1', # Valor padrão
-        #     values=('1', '2', '3'),
-        #     size_hint_y=None,
-        #     height=44
-        # )
+        # Botão de voltar telas
+        navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
+        
+        back_button = Button(text="Voltar", font_size='20sp')
+        back_button.bind(on_press=self.go_back)
         
         # Botão para iniciar o jogo
         continue_button = Button(text='Iniciar Jogo', font_size='20sp', size_hint_y=None, height=50)
-        # Essa é a chave: 'vincular' os botões em evento 'on_press' para o método self.start_game 
-        # Quando o botão é pressionado,Kivy vai automaticamente chamar essa função
         continue_button.bind(on_press=self.start_game_button_pressed)
+        
+        navigation_layout.add_widget(back_button)
+        navigation_layout.add_widget(continue_button)
         
         self.status_label = Label(text="", color=(1,0,0,1), font_size='16sp', size_hint_y=None, height=30)
         
@@ -72,7 +61,7 @@ class CategoryScreen(Screen):
         main_layout.add_widget(self.category_grid)
         main_layout.add_widget(rounds_label)
         main_layout.add_widget(self.rounds_grid)
-        main_layout.add_widget(continue_button)
+        main_layout.add_widget(navigation_layout)
         main_layout.add_widget(self.status_label)
         
         self.add_widget(main_layout)
@@ -147,3 +136,9 @@ class CategoryScreen(Screen):
         app.num_rounds = self.selected_round
 
         app.start_game()        
+        
+    def go_back(self, instance):
+        """
+        Função que lida com o botão voltar
+        """
+        self.manager.current = 'setup'

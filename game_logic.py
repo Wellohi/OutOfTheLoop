@@ -26,7 +26,7 @@ def setup_game(player_names, chosen_category): # game_words
     out_of_the_loop_player_index = random.randint(0, num_players - 1)
 
     # Aleatoriamente seleciona a palavra secreta
-    secret_word = random.choice(game_words[chosen_category])
+    secret_word_object = random.choice(game_words[chosen_category])
     
     players = []
     
@@ -36,7 +36,7 @@ def setup_game(player_names, chosen_category): # game_words
             player_info = {
                 'name': name,
                 'papel': 'Impostor',
-                'palavra': ('Você está fora da rodada!\nTente não ser descoberto e descobrir a palavra secreta!')
+                'word': ('Você está fora da rodada!\nTente não ser descoberto e descobrir a palavra secreta!')
             }
             
         else:
@@ -44,7 +44,7 @@ def setup_game(player_names, chosen_category): # game_words
             player_info = {
                 'name': name,
                 'papel': 'Jogador',
-                'palavra': secret_word
+                'word': secret_word_object
             }
             
         players.append(player_info)
@@ -93,7 +93,7 @@ if __name__ == '__main__':
             if game_state:
                 print("Jogo configurado!\n")
                 for jogador in game_state:
-                    print(f"Jogador {jogador['name']}: Papel - {jogador['papel']}, Palavra - '{jogador['palavra']}'\n")
+                    print(f"Jogador {jogador['name']}: Papel - {jogador['papel']}, Palavra - '{jogador['word']}'\n")
                 
     except ValueError:
         print("Por favor, insira um número válido de jogadores.")

@@ -66,10 +66,22 @@ class RevealScreen(Screen):
         if self.word_is_hidden:
             # Revela a palavra
             player_data = self.game_state[self.current_player_index]
-            self.info_label.text = f"A palavra é: \n\n[b]{player_data['palavra']}[/b]"
+            word_info = player_data['word']
+            
+            #Checa se o tipo 'word_info' pra ver se é o jogador ou impostor
+            if isinstance(word_info, dict):
+                word = word_info['word']
+                desc = word_info['desc']
+                # Mostra a palavra em negrito e a descrição abaixo em italico
+                self.info_label.text = f"A palavra é: \n\n[b]{word}[/b]\n\n[i]{desc}[/i]"
+            else:
+                # Se for impostor
+                self.info_label.text = f"[b]{word_info}[/b]"
+                
             self.info_label.markup = True # Diz ao label para processar as tags
             self.action_button.text = "Aperte para esconder"
             self.word_is_hidden = False
+            
         else:
             # Esconde a palavra e muda para o próximo jogador
             self.info_label.narkup = False # Desativa o markup para texto normal
