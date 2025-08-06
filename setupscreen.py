@@ -42,7 +42,7 @@ class SetupScreen(Screen):
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
         button_layout = BoxLayout(size_hint_y=None, height=70, spacing=30)
-        add_button = Button(text='Adicionar Jogador', font_size='25sp')
+        add_button = Button(text='Adicionar Jogador', font_size='28sp')
         add_button.bind(on_press=self.add_player_input)
         self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp') # Inicia desabilitado
         self.remove_button.bind(on_press=self.remove_player_input)

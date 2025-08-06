@@ -14,14 +14,14 @@ class RevealScreen(Screen):
         # Esses são os widgets que vão ser mostrados e escondidos
         self.info_label = Label(
             text="",
-            font_size='40sp', 
+            font_size='30sp', 
             halign='center',
             valign='middle',
             )
         # Faz o texto se adaptar às bordas da tela
         self.info_label.bind(size=self.info_label.setter('text_size'))
         # Cria dois botões separados
-        self.action_button = Button(text="Toque para Revelar", font_size='40sp')
+        self.action_button = Button(text="Toque para Revelar", font_size='30sp')
         self.action_button.bind(on_press=self.handle_action)
         
         self.layout.add_widget(self.info_label)

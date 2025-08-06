@@ -12,24 +12,24 @@ class QuestionScreen(Screen):
         super(QuestionScreen,self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         
-        self.round_label = Label(text="", font_size='30sp')
-        self.asker_label = Label(text="", font_size='35sp', bold=True)
-        self.answerer_label = Label(text="", font_size='35sp', bold=True)
+        self.round_label = Label(text="", font_size='25sp')
+        self.asker_label = Label(text="", font_size='30sp', bold=True)
+        self.answerer_label = Label(text="", font_size='30sp', bold=True)
         self.question_label = Label(
             text="",
-            font_size='30sp',
+            font_size='25sp',
             halign='center',
             valign='middle'
             )
         
         self.question_label.bind(size=self.question_label.setter('text_size'))        
         
-        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=100, font_size='35sp')
+        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=50, font_size='30sp')
         self.next_button.bind(on_press=self.next_question)
         
         self.main_layout.add_widget(self.round_label)
         self.main_layout.add_widget(self.asker_label)
-        self.main_layout.add_widget(Label(text='Pergunta para', font_size='30sp'))
+        self.main_layout.add_widget(Label(text='Pergunta para', font_size='25sp'))
         self.main_layout.add_widget(self.answerer_label)
         self.main_layout.add_widget(self.question_label)
         self.main_layout.add_widget(self.next_button)
