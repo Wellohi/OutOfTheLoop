@@ -1,18 +1,5 @@
 # ----------------- Categorias ----------------- #
 
-
-Animal:[
-
-]
-
-Comida:[
-    
-]
-
-Objeto:[
-
-]
-
 Profissão:[
 
 
@@ -21,3 +8,7 @@ Profissão:[
 
 # ----------------- Perguntas ----------------- #
 
+Profissão:[
+
+
+]

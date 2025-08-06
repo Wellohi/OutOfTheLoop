@@ -11,13 +11,13 @@ class ResultsScreen(Screen):
     def __init__(self, **kwargs):
         super(ResultsScreen, self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        self.title_label = Label(text="Os resultados são...", font_size='24sp', bold=True)
-        self.result_label = Label(text="", font_size='20sp', halign='center')
+        self.title_label = Label(text="Os resultados são...", font_size='50sp', bold=True)
+        self.result_label = Label(text="", font_size='35sp', halign='center')
         # Cria dois botões separados para os dois estados.
-        self.reveal_impostor_button = Button(text = 'Mostrar Impostor', font_size='20sp')
+        self.reveal_impostor_button = Button(text = 'Mostrar Impostor', font_size='45sp')
         self.reveal_impostor_button.bind(on_press=self.show_final_results)
         # Botão deJogar novamente
-        self.play_again_button = Button(text="Jogar Novamente", font_size='20sp')
+        self.play_again_button = Button(text="Jogar Novamente", font_size='45sp')
         self.play_again_button.bind(on_press=self.play_again)
         
         self.main_layout.add_widget(self.title_label)
@@ -38,7 +38,7 @@ class ResultsScreen(Screen):
         app = App.get_running_app()
         
         # Cria o texto de resultado()
-        result_text = f"O mais votado foi: \n[b]{app.most_voted_name}[/b]\n\n"
+        result_text = f"O mais votado foi: \n\n[b]{app.most_voted_name}[/b]\n\n"
         self.result_label.text = result_text
         self.result_label.markup = True
         
@@ -54,7 +54,7 @@ class ResultsScreen(Screen):
         """    
         app = App.get_running_app()
         
-        result_text = f"Mas na verdado, o impostor era: \n[b]{app.impostor_name}[/b]\n\n"
+        result_text = f"Mas na verdado, o impostor era: \n\n[b]{app.impostor_name}[/b]\n\n"
         
         # Determina o vencedor
         if app.most_voted_name == app.impostor_name:

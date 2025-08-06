@@ -12,17 +12,24 @@ class QuestionScreen(Screen):
         super(QuestionScreen,self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         
-        self.round_label = Label(text="", font_size='20sp')
-        self.asker_label = Label(text="", font_size='24sp', bold=True)
-        self.answerer_label = Label(text="", font_size='24sp', bold=True)
-        self.question_label = Label(text="", font_size='22sp', halign='center')
+        self.round_label = Label(text="", font_size='30sp')
+        self.asker_label = Label(text="", font_size='35sp', bold=True)
+        self.answerer_label = Label(text="", font_size='35sp', bold=True)
+        self.question_label = Label(
+            text="",
+            font_size='30sp',
+            halign='center',
+            valign='middle'
+            )
         
-        self.next_button = Button(text='Próxima Pergunta', font_size='20sp')
+        self.question_label.bind(size=self.question_label.setter('text_size'))        
+        
+        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=100, font_size='35sp')
         self.next_button.bind(on_press=self.next_question)
         
         self.main_layout.add_widget(self.round_label)
         self.main_layout.add_widget(self.asker_label)
-        self.main_layout.add_widget(Label(text='Pergunta para', font_size='24sp'))
+        self.main_layout.add_widget(Label(text='Pergunta para', font_size='30sp'))
         self.main_layout.add_widget(self.answerer_label)
         self.main_layout.add_widget(self.question_label)
         self.main_layout.add_widget(self.next_button)
@@ -32,7 +39,7 @@ class QuestionScreen(Screen):
         # Estado de rastrear variáveis
         self.question_pairs = []
         self.current_pair_index = 0
-        self.questions_for_category = []
+        self.local_question_deck = []
         self.chosen_category = ''
         
     def on_enter(self):
@@ -48,7 +55,6 @@ class QuestionScreen(Screen):
         app = App.get_running_app()
         self.question_pairs = app.question_pairs
         self.chosen_category = app.chosen_category
-        self.questions_for_category = app.game_questions[self.chosen_category]
         
         self.current_pair_index = 0
         self.display_current_question()
@@ -57,7 +63,6 @@ class QuestionScreen(Screen):
         """
         Atualiza as labels com a pergunta atual e jogadores
         """
-        
         # Calcula a rodada atual e o número de perguntas
         num_players = len(App.get_running_app().player_names)
         current_round = (self.current_pair_index // num_players) + 1
@@ -72,9 +77,16 @@ class QuestionScreen(Screen):
         self.asker_label.text = asker
         self.answerer_label.text = answerer
         
-        # Pega uma pergunta aleatória
-        self.question_label.text = f"'{random.choice(self.questions_for_category)}'"
+        # Get a question using the "deck of cards" method
+        if not self.local_question_deck:
+            app = App.get_running_app()
+            questions = app.game_questions[self.chosen_category].copy()
+            random.shuffle(questions)
+            self.local_question_deck = questions
         
+        next_question = self.local_question_deck.pop()
+        self.question_label.text = f"'{next_question}'"
+                    
         # Muda o botão texto na ultima pergunta
         if self.current_pair_index == len(self.question_pairs) -1:
             self.next_button.text = "Ir Para Votação"

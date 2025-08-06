@@ -12,13 +12,13 @@ class CategoryScreen(Screen):
         super(CategoryScreen, self).__init__(**kwargs)
         main_layout = BoxLayout(orientation='vertical', padding=20, spacing=30)
         
-        title_label = Label(text="Configurações do Jogo", font_size='24sp', bold=True)
+        title_label = Label(text="Configurações do Jogo", font_size='50sp', bold=True)
 
-        category_label = Label(text="Escolha uma categoria", size_hint_y=None, height=30)
+        category_label = Label(text="Escolha uma categoria", size_hint_y=None, height=30, font_size='35sp')
         self.category_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
         self.category_grid.bind(minimum_height=self.category_grid.setter('height'))
         
-        rounds_label = Label(text="Selecione Quantas Rodadas de Perguntas", size_hint_y=None, height=30)
+        rounds_label = Label(text="Selecione Quantas Rodadas de Perguntas", size_hint_y=None, height=30, font_size='35sp')
         self.rounds_grid = GridLayout(cols=3, spacing=10, size_hint_y=None)
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
         
@@ -30,25 +30,25 @@ class CategoryScreen(Screen):
         # Pega a lista da instancia main app para popular o spinner
         game_words = App.get_running_app().game_words
         for category_name in game_words.keys():
-            btn = Button(text=category_name, size_hint_y=None, height=50, background_normal='')
+            btn = Button(text=category_name, size_hint_y=None, height=70, background_normal='', font_size='30sp')
             btn.bind(on_press=self.select_category)
             self.category_buttons.append(btn)
             self.category_grid.add_widget(btn)
             
         for round_num in ['1', '2', '3']:
-            btn = Button(text=round_num, size_hint_y=None, height=50, background_normal='')
+            btn = Button(text=round_num, size_hint_y=None, height=70, background_normal='', font_size='30sp')
             btn.bind(on_press=self.select_round)
             self.round_buttons.append(btn)
             self.rounds_grid.add_widget(btn)
         
         # Botão de voltar telas
-        navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
+        navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=70)
         
         back_button = Button(text="Voltar", font_size='20sp')
         back_button.bind(on_press=self.go_back)
         
         # Botão para iniciar o jogo
-        continue_button = Button(text='Iniciar Jogo', font_size='20sp', size_hint_y=None, height=50)
+        continue_button = Button(text='Iniciar Jogo', font_size='40sp', size_hint_y=None, height=70)
         continue_button.bind(on_press=self.start_game_button_pressed)
         
         navigation_layout.add_widget(back_button)

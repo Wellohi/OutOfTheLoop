@@ -12,9 +12,16 @@ class RevealScreen(Screen):
         super(RevealScreen, self).__init__(**kwargs)
         self.layout = BoxLayout(orientation='vertical', padding=30, spacing=20)
         # Esses são os widgets que vão ser mostrados e escondidos
-        self.info_label = Label(text="", font_size='24sp', halign='center')
+        self.info_label = Label(
+            text="",
+            font_size='40sp', 
+            halign='center',
+            valign='middle',
+            )
+        # Faz o texto se adaptar às bordas da tela
+        self.info_label.bind(size=self.info_label.setter('text_size'))
         # Cria dois botões separados
-        self.action_button = Button(text="Toque para Revelar", font_size='20sp')
+        self.action_button = Button(text="Toque para Revelar", font_size='40sp')
         self.action_button.bind(on_press=self.handle_action)
         
         self.layout.add_widget(self.info_label)
@@ -51,7 +58,8 @@ class RevealScreen(Screen):
             
     def update_display_for_next_player(self):
         player_name = self.game_state[self.current_player_index]['name']
-        self.info_label.text = f"Jogador {player_name}, sua vez. \n\n Passe o celular para ele."
+        self.info_label.text = f"Jogador [b]{player_name}[/b], sua vez. \n\n Passe o dispositivo para ele."
+        self.info_label.markup = True
         self.action_button.text = "Toque para Revelar"
         self.word_is_hidden = True
         

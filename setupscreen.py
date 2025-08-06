@@ -29,7 +29,7 @@ class SetupScreen(Screen):
         main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         # Criar as widgets necessárias
         # Título da label
-        title_label = Label(text="Digite o nome dos jogadores", font_size='24sp', bold=True, size_hint_y=None, height=40)
+        title_label = Label(text="Digite o nome dos jogadores", font_size='50sp', bold=True, size_hint_y=None, height=40)
         # --- Sessão Name Input Dinãmico --- #
         # Um ScrollView é necessário caso haja muitos jogadores adicionados
         scroll_view = ScrollView(size_hint=(1,1))
@@ -41,16 +41,16 @@ class SetupScreen(Screen):
         # Essa lista vai armazenar o objeto TextInput widget atual
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
-        button_layout = BoxLayout(size_hint_y=None, height=40, spacing=10)
-        add_button = Button(text='Adicionar Jogador')
+        button_layout = BoxLayout(size_hint_y=None, height=70, spacing=30)
+        add_button = Button(text='Adicionar Jogador', font_size='25sp')
         add_button.bind(on_press=self.add_player_input)
-        self.remove_button = Button(text='Remover Jogador', disabled=True) # Inicia desabilitado
+        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp') # Inicia desabilitado
         self.remove_button.bind(on_press=self.remove_player_input)
         button_layout.add_widget(add_button)
         button_layout.add_widget(self.remove_button)
         # --- Seleção de Categoria --- #
         # Um label e um spinner para escolher a categoria
-        continue_button = Button(text="Continuar", font_size='20sp', size_hint_y=None, height=50)
+        continue_button = Button(text="Continuar", font_size='40sp', size_hint_y=None, height=70)
         continue_button.bind(on_press=self.proceed_to_category)
         self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=30)
         # Adicionar os widgets ao layout na ordem que queremos que apareça
@@ -97,7 +97,13 @@ class SetupScreen(Screen):
         Cria um novo TextInput para cada nome de jogador e adiciona na tela
         """
         if len(self.name_inputs) < 9: # Adiciona um limite máximo de jogadores
-            new_input = TextInput(hint_text=f"Player {len(self.name_inputs) + 1}", size_hint_y=None, height=40)
+            new_input = TextInput(
+                hint_text=f"Jogador {len(self.name_inputs) + 1}",
+                size_hint_y=None,
+                height=100,
+                font_size='40sp'         
+            )
+            
             self.names_layout.add_widget(new_input)
             self.name_inputs.append(new_input)
             # Habilita o botão remover se houer mais de 3 jogadores

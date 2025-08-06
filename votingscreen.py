@@ -12,7 +12,7 @@ class VotingScreen(Screen):
         super(VotingScreen, self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
     
-        self.title_label = Label(text='', font_size='24sp', bold=True)
+        self.title_label = Label(text='', font_size='35sp', bold=True)
         self.buttons_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
                 
         self.main_layout.add_widget(self.title_label)
@@ -53,13 +53,13 @@ class VotingScreen(Screen):
         self.buttons_grid.clear_widgets()
 
         voter_name = self.player_names[self.current_voter_index]
-        self.title_label.text = f"{voter_name}, quem você acha que é o impostor?"
+        self.title_label.text = f"{voter_name},\n quem você acha que é o impostor?"
         
         # Cria um botão para cada jogar que pode ser votado
         for player in self.game_state:
             # Um jogador não pode votar em sí mesmo
             if player['name'] != voter_name:
-                btn = Button(text=player['name'], font_size='18sp')
+                btn = Button(text=player['name'], font_size='40sp')
                 btn.bind(on_press=lambda instance, p=player: self.cast_vote(p))
                 self.buttons_grid.add_widget(btn)
                 
