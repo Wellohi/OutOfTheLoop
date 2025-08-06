@@ -3,6 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.widget import Widget
 from kivy.app import App
 from kivy.utils import get_color_from_hex
  
@@ -14,12 +15,12 @@ class CategoryScreen(Screen):
         
         title_label = Label(text="Configurações do Jogo", font_size='30sp', bold=True)
 
-        category_label = Label(text="Escolha uma categoria", size_hint_y=None, height=30, font_size='20sp')
-        self.category_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
+        category_label = Label(text="Escolha uma categoria", size_hint_y=None, height=30, font_size='25sp')
+        self.category_grid = GridLayout(cols=2, spacing=10, size_hint_y=None, height=60)
         self.category_grid.bind(minimum_height=self.category_grid.setter('height'))
         
-        rounds_label = Label(text="Selecione Quantas Rodadas de Perguntas", size_hint_y=None, height=30, font_size='20sp')
-        self.rounds_grid = GridLayout(cols=3, spacing=10, size_hint_y=None)
+        rounds_label = Label(text="Selecione Quantas Rodadas de Perguntas", size_hint_y=None, height=30, font_size='25sp')
+        self.rounds_grid = GridLayout(cols=3, spacing=10, size_hint_y=None, height=60)
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
         
         self.selected_category = None
@@ -40,15 +41,18 @@ class CategoryScreen(Screen):
             btn.bind(on_press=self.select_round)
             self.round_buttons.append(btn)
             self.rounds_grid.add_widget(btn)
+            
+        bottom_layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
+        bottom_layout.bind(minimum_height=bottom_layout.setter('height'))
         
         # Botão de voltar telas
         navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
         
-        back_button = Button(text="Voltar", font_size='30sp')
+        back_button = Button(text="Voltar", font_size='30sp', size_hint_y=None, height=100)
         back_button.bind(on_press=self.go_back)
         
         # Botão para iniciar o jogo
-        continue_button = Button(text='Iniciar Jogo', font_size='30sp', size_hint_y=None, height=50)
+        continue_button = Button(text='Iniciar Jogo', font_size='30sp', size_hint_y=None, height=100)
         continue_button.bind(on_press=self.start_game_button_pressed)
         
         navigation_layout.add_widget(back_button)
@@ -56,13 +60,16 @@ class CategoryScreen(Screen):
         
         self.status_label = Label(text="", color=(1,0,0,1), font_size='16sp', size_hint_y=None, height=30)
         
+        bottom_layout.add_widget(self.status_label)
+        bottom_layout.add_widget(navigation_layout)
+        
         main_layout.add_widget(title_label)
         main_layout.add_widget(category_label)
         main_layout.add_widget(self.category_grid)
         main_layout.add_widget(rounds_label)
         main_layout.add_widget(self.rounds_grid)
-        main_layout.add_widget(navigation_layout)
-        main_layout.add_widget(self.status_label)
+        main_layout.add_widget(Widget())
+        main_layout.add_widget(bottom_layout)
         
         self.add_widget(main_layout)
         

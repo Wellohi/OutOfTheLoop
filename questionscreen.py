@@ -24,7 +24,7 @@ class QuestionScreen(Screen):
         
         self.question_label.bind(size=self.question_label.setter('text_size'))        
         
-        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=50, font_size='30sp')
+        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=100, font_size='30sp')
         self.next_button.bind(on_press=self.next_question)
         
         self.main_layout.add_widget(self.round_label)

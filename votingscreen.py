@@ -12,7 +12,15 @@ class VotingScreen(Screen):
         super(VotingScreen, self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
     
-        self.title_label = Label(text='', font_size='25sp', bold=True)
+        self.title_label = Label(
+            text='',
+            font_size='25sp',
+            halign='center',
+            valign='middle',
+            bold=True
+            )
+        self.title_label.bind(size=self.title_label.setter('text_size')) 
+            
         self.buttons_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
                 
         self.main_layout.add_widget(self.title_label)

@@ -6,7 +6,7 @@ game_questions = {
         'Se você tivesse esse animal como bicho de estimação, onde você o colocaria?',
         'Esse é um animal terrestre, aquátivo ou aéreo?',
         'Na sua opnião, qual seria a profissão desse animal?',
-        'Esse animal ficara em qual posição em uma corrida?',
+        'Você consegue correr mais que esse animal?',
         'Você prefere enfrentar 10 galinhas do tamanho desse animal ou 10 desse animal do tamanho de uma galinha',
         'Se esse animal falasse, qual seria o sotaque ou o jeito que ele falaria?',
         'Você comeria esse animal se fosse feito pela sua vó?',
