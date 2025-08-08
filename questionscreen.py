@@ -56,6 +56,8 @@ class QuestionScreen(Screen):
         self.question_pairs = app.question_pairs
         self.chosen_category = app.chosen_category
         
+        self.local_question_deck = app.question_deck.copy()
+        
         self.current_pair_index = 0
         self.display_current_question()
         

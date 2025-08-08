@@ -21,7 +21,8 @@ class VotingScreen(Screen):
             )
         self.title_label.bind(size=self.title_label.setter('text_size')) 
             
-        self.buttons_grid = GridLayout(cols=2, spacing=10, size_hint_y=None)
+        self.buttons_grid = GridLayout(cols=1, spacing=15, size_hint_y=None)
+        self.buttons_grid.bind(minimum_height=self.buttons_grid.setter('height'))
                 
         self.main_layout.add_widget(self.title_label)
         self.main_layout.add_widget(self.buttons_grid)
@@ -67,7 +68,12 @@ class VotingScreen(Screen):
         for player in self.game_state:
             # Um jogador não pode votar em sí mesmo
             if player['name'] != voter_name:
-                btn = Button(text=player['name'], font_size='40sp')
+                btn = Button(
+                    text=player['name'],
+                    font_size='40sp',
+                    size_hint_y=None,
+                    height=70
+                    )
                 btn.bind(on_press=lambda instance, p=player: self.cast_vote(p))
                 self.buttons_grid.add_widget(btn)
                 

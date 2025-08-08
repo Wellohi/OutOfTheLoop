@@ -12,3 +12,5 @@ Profissão:[
 
 
 ]
+
+# ----------------- Criar Rodada de Desempate ----------------- #

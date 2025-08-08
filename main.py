@@ -54,7 +54,7 @@ class OutOfTheLoopApp(App):
         self.num_rounds = 0
         self.chosen_category = None
         self.question_pairs = []
-        
+        self.question_deck = []
         # a aplicação vai manter o game_state central e manter os nomes entre telas
         self.game_state = None
         self.player_names = None
@@ -73,12 +73,12 @@ class OutOfTheLoopApp(App):
             player_names = self.player_names
             # Categoria é lido da instancia category_screen
             chosen_category = self.chosen_category
-            self.num_rounds = self.num_rounds
-            
+                        
             self.game_state = setup_game(player_names, chosen_category)
             
             if self.game_state:
                 self.generate_question_rounds()
+                self.prepare_question_deck()
                 self.sm.current = 'reveal'
             else:
                 # Esse case idealmente não deve ser ativado por conta da valiodação no SetupScreen,
@@ -103,6 +103,13 @@ class OutOfTheLoopApp(App):
                 answerer = players[(i + 1) % len(players)]
                 self.question_pairs.append({'asker': asker, 'answerer': answerer})
 
+    def prepare_question_deck(self):
+        """
+        Pega as perguntas, embaralha e armazena.
+        """
+        questions = self.game_questions[self.chosen_category].copy()
+        random.shuffle(questions)
+        self.question_deck = questions
               
     def calculate_and_show_results(self, votes):
         """
@@ -129,25 +136,13 @@ class OutOfTheLoopApp(App):
         self.player_names = None
         self.most_voted_name = None
         self.impostor_name = None
-        self.num_rounds = 0 # Reseta o número de rounds
+        self.num_rounds = 0
         self.chosen_category = None
         self.question_pairs = []
+        self.question_deck = []
         
-        self.setup_screen.names_layout.clear_widgets()
-        self.setup_screen.name_inputs.clear()
-        for i in range(3):
-            self.setup_screen.add_player_input()
-        self.setup_screen.status_label.text = ""
-        
-        # Clock.schedule_once(self.switch_to_setup, 0)
+        self.sm.current = 'loading'
 
-        self.sm.current = 'setup'
-
-                           
-    # def switch_to_setup(self, dt):
-    #     """This helper function is called by the Clock to perform the screen switch."""
-    #     self.sm.current = 'setup'
-                 
 # Rodar a aplicação                
 if __name__ == '__main__':
     OutOfTheLoopApp().run()

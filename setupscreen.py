@@ -26,7 +26,7 @@ class SetupScreen(Screen):
         Window.softinput_mode = 'below_target'
         # O layout principal vai manter todas as widgets
         # Uma BoxLayout vertical, então o widgets são adicionados de cima para baixo
-        main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+        main_layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
         # Criar as widgets necessárias
         # Título da label
         title_label = Label(text="Digite o nome dos jogadores", font_size='30sp', bold=True, size_hint_y=None, height=40)
@@ -34,14 +34,14 @@ class SetupScreen(Screen):
         # Um ScrollView é necessário caso haja muitos jogadores adicionados
         scroll_view = ScrollView(size_hint=(1,1))
         # Esse layout vai conter os TextInputs e vai se colocado dentro do ScrollView
-        self.names_layout = BoxLayout(orientation='vertical', spacing=5, size_hint_y=None)
+        self.names_layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
         # Essa linha é importante: Faz com que o layout cresça verticalmente enquanto as widgets são adicionadas
         self.names_layout.bind(minimum_height=self.names_layout.setter('height'))
         scroll_view.add_widget(self.names_layout)
         # Essa lista vai armazenar o objeto TextInput widget atual
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
-        button_layout = BoxLayout(size_hint_y=None, height=100, spacing=30)
+        button_layout = BoxLayout(size_hint_y=None, height=100, spacing=40)
         add_button = Button(text='Adicionar Jogador', font_size='20sp')
         add_button.bind(on_press=self.add_player_input)
         self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='20sp') # Inicia desabilitado
@@ -50,7 +50,7 @@ class SetupScreen(Screen):
         button_layout.add_widget(self.remove_button)
         # --- Seleção de Categoria --- #
         # Um label e um spinner para escolher a categoria
-        continue_button = Button(text="Continuar", font_size='40sp', size_hint_y=None, height=100)
+        continue_button = Button(text="Continuar", font_size='40sp', size_hint_y=None, height=150)
         continue_button.bind(on_press=self.proceed_to_category)
         self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=50)
         # Adicionar os widgets ao layout na ordem que queremos que apareça
@@ -100,7 +100,7 @@ class SetupScreen(Screen):
             new_input = TextInput(
                 hint_text=f"Jogador {len(self.name_inputs) + 1}",
                 size_hint_y=None,
-                height=100,
+                height=200,
                 font_size='40sp'         
             )
             
