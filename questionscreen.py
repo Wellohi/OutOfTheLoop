@@ -22,17 +22,25 @@ class QuestionScreen(Screen):
             valign='middle'
             )
         
-        self.question_label.bind(size=self.question_label.setter('text_size'))        
+        self.question_label.bind(size=self.question_label.setter('text_size'))       
         
-        self.next_button = Button(text='Próxima Pergunta', size_hint_y=None, height=100, font_size='30sp')
+        navigation_layout = BoxLayout(orientation='horizontal', spacing=20, size_hint_y=None, height=100) 
+        
+        self.back_button = Button(text='Pergunta Anterior', font_size='25sp', disabled=True)
+        self.back_button.bind(on_press=self.previous_question)
+        
+        self.next_button = Button(text='Próxima Pergunta', font_size='25sp')
         self.next_button.bind(on_press=self.next_question)
         
+        navigation_layout.add_widget(self.back_button)
+        navigation_layout.add_widget(self.next_button)
+                
         self.main_layout.add_widget(self.round_label)
         self.main_layout.add_widget(self.asker_label)
         self.main_layout.add_widget(Label(text='Pergunta para', font_size='25sp'))
         self.main_layout.add_widget(self.answerer_label)
         self.main_layout.add_widget(self.question_label)
-        self.main_layout.add_widget(self.next_button)
+        self.main_layout.add_widget(navigation_layout)
         
         self.add_widget(self.main_layout)
         
@@ -79,21 +87,25 @@ class QuestionScreen(Screen):
         self.asker_label.text = asker
         self.answerer_label.text = answerer
         
-        # Get a question using the "deck of cards" method
-        if not self.local_question_deck:
-            app = App.get_running_app()
-            questions = app.game_questions[self.chosen_category].copy()
-            random.shuffle(questions)
-            self.local_question_deck = questions
-        
-        next_question = self.local_question_deck.pop()
+        question_index = self.current_pair_index % len(self.local_question_deck)
+        next_question = self.local_question_deck[question_index]
         self.question_label.text = f"'{next_question}'"
+        
+        self.back_button.disabled = (self.current_pair_index == 0)
                     
         # Muda o botão texto na ultima pergunta
         if self.current_pair_index == len(self.question_pairs) -1:
             self.next_button.text = "Ir Para Votação"
         else: 
             self.next_button.text = "Próxima Pergunta"
+            
+    def previous_question(self, instance):
+        """
+        Volta uma pergunta
+        """
+        if self.current_pair_index > 0:
+            self.current_pair_index -= 1
+            self.display_current_question()
             
     def next_question(self,instance):
         """

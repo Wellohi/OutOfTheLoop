@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import ScreenManager, FadeTransition
 # from kivy.clock import Clock
 import random
 # Importa as telas do aplicativo de seus respectivos arquivos
+from titlescreen import TitleScreen
 from setupscreen import SetupScreen
 from revealscreen import RevealScreen
 from votingscreen import VotingScreen
@@ -32,6 +33,7 @@ class OutOfTheLoopApp(App):
         self.game_questions = game_questions
         self.sm = ScreenManager(transition=FadeTransition())
         # Cria instancia para as telas
+        self.title_screen = TitleScreen(name='title')
         self.setup_screen = SetupScreen(name='setup')
         self.category_screen = CategoryScreen(name='category')
         self.reveal_screen = RevealScreen(name='reveal')
@@ -41,6 +43,7 @@ class OutOfTheLoopApp(App):
         self.loading_screen = LoadingScreen(name='loading')
         
         # Adiciona as telas ao gerenciador
+        self.sm.add_widget(self.title_screen)
         self.sm.add_widget(self.setup_screen)
         self.sm.add_widget(self.category_screen)
         self.sm.add_widget(self.reveal_screen)
@@ -133,7 +136,7 @@ class OutOfTheLoopApp(App):
         Reinicia o jogo e retorna a tela inicial
         """
         self.game_state = None
-        self.player_names = None
+        # self.player_names = None
         self.most_voted_name = None
         self.impostor_name = None
         self.num_rounds = 0
@@ -141,7 +144,7 @@ class OutOfTheLoopApp(App):
         self.question_pairs = []
         self.question_deck = []
         
-        self.sm.current = 'loading'
+        self.sm.current = 'setup'
 
 # Rodar a aplicação                
 if __name__ == '__main__':

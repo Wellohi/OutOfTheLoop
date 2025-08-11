@@ -1,7 +1,5 @@
 #from  loadingscreen.py
-
 from kivy.uix.screenmanager import Screen
-from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 
 class LoadingScreen(Screen):
@@ -14,13 +12,13 @@ class LoadingScreen(Screen):
         É chamado quando a tela se torna visível
         É imediatamente agendado o switch para o verdadeiro setup screen 
         """
-        Clock.schedule_once(self.switch_to_setup, 0)
+        Clock.schedule_once(self.switch_to_title, 0)
         
     def switch_to_setup(self,dt):
         """
         Muda o screen manager, para o setup screen
         """        
-        self.manager.current = 'setup'
+        self.manager.current = 'title'
 
     
     

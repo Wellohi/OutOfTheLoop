@@ -15,22 +15,15 @@ source.dir = .
 # (list) Source files to include (let buildozer find them)
 source.include_exts = py,png,jpg,kv,atlas
 
-# (list) List of modules to crash if found in search path
-source.exclude_strs = tests,docs,spec
-
-# (list) List of directory to exclude (let buildozer find them)
-source.exclude_dirs = tests, bin
-
 # (str) The version of your application
-version = 0.1
-
-# (list) Kivy version to use
-kivy.version = 2.1.0
+version = 0.2
 
 # (list) Your application requirements
-# --- MODIFIED: Simplified for the virtual environment ---
-# We have already installed the correct versions of cython and jnius.
+# MODIFIED: Simplified to the essentials. The other libraries are handled by the build process.
 requirements = python3,kivy
+
+# (str) Supported orientation
+orientation = portrait
 
 #
 # Android specific
@@ -39,22 +32,11 @@ requirements = python3,kivy
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 1
 
-# (str) Supported orientation (one of landscape, sensorLandscape, portrait, sensorPortrait)
-orientation = portrait
-
+# (str) This provides a direct rule for the Android OS.
 android.screen_orientation = portrait
 
-# (list) Permissions
-# android.permissions = INTERNET,ACCESS_NETWORK_STATE
-
-# (str) The Android arch to build for.
+# (list) The Android architectures to build for.
 android.archs = arm64-v8a
-
-# --- NEW: This is the definitive fix for the pyenv conflict ---
-# This line explicitly tells python-for-android which Python executable to use for the build,
-# pointing directly to the one inside our clean virtual environment.
-# Make sure your username is correct in this path.
-p4a.python_cmd = /home/wellohi/pyproject/outoftheloop/build_env/bin/python3
 
 #
 # Buildozer specific

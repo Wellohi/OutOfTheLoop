@@ -8,11 +8,6 @@ from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window   
 # from kivy.clock import Clock
 
-# --- Import da Logica do Jogo --- #
-# Importa-se a função setup_game e a lista de palabras do arquivo app.py
-# Garanta que o app.py esteja na mesma pasta que esse arquivo
-
-
 # ---  Tela de configurração --- #
 # Transformando o layout em uma classe Screen aprorpriada
      
@@ -42,62 +37,59 @@ class SetupScreen(Screen):
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
         button_layout = BoxLayout(size_hint_y=None, height=100, spacing=40)
-        add_button = Button(text='Adicionar Jogador', font_size='20sp')
+        add_button = Button(text='Adicionar Jogador', font_size='40sp')
         add_button.bind(on_press=self.add_player_input)
-        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='20sp') # Inicia desabilitado
+        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='40sp') # Inicia desabilitado
         self.remove_button.bind(on_press=self.remove_player_input)
         button_layout.add_widget(add_button)
         button_layout.add_widget(self.remove_button)
+        
+        navigation_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=100, spacing=40)
+        
+        back_button = Button(text='Voltar', font_size='40sp')
+        back_button.bind(on_press=self.go_back)
         # --- Seleção de Categoria --- #
         # Um label e um spinner para escolher a categoria
-        continue_button = Button(text="Continuar", font_size='40sp', size_hint_y=None, height=150)
+        continue_button = Button(text="Continuar", font_size='40sp')
         continue_button.bind(on_press=self.proceed_to_category)
+        
+        navigation_layout.add_widget(back_button)
+        navigation_layout.add_widget(continue_button)
+        
         self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=50)
         # Adicionar os widgets ao layout na ordem que queremos que apareça
         main_layout.add_widget(title_label)
         main_layout.add_widget(scroll_view)
         main_layout.add_widget(button_layout)
-        main_layout.add_widget(continue_button)
+        main_layout.add_widget(navigation_layout)
         main_layout.add_widget(self.status_label)
         # Finalmente, adicionar o layout a screen 
         self.add_widget(main_layout)
+       
+    def on_pre_enter(self, *args):
+        """
+        Esse método checa se o jogador já existe de um jogo anterior
+        """
+        self.names_layout.clear_widgets()
+        self.name_inputs.clear()
+        self.status_label.text = ""
         
-        for i in range(3):
-            self.add_player_input()
+        app = App.get_running_app()
         
-    # def on_enter(self):
-    #     """
-    #     Agenda a screen setup para rodar no próximo frame.
-    #     """
-    #     Clock.schedule_once(self.reset_screen)
+        if app.player_names:
+            for name in app.player_names:
+                self.add_player_input(text_to_set=name)
+        else:
+            for i in range(3):
+                self.add_player_input()
         
-    # def reset_screen(self, dt):
-    #     """
-    #     Reseta a tela para o padrão para não ter probema de race condition
-    #     """
-    #     # É necessário limpar e recriar os inputs para o próximo jogo
-    #     self.names_layout.clear_widgets()
-    #     self.name_inputs.clear()
-    #     for i in range(3):
-    #         self.add_player_input()
-    #     self.status_label.text = ""
-    
-    # def on_pre_enter(self, *args):
-    #     """
-    #     Esse método é chamado antes da tela transicionar. 
-    #     """
-    #     self.names_layout.clear_widgets()
-    #     self.name_inputs.clear()
-    #     for i in range(3):
-    #         self.add_player_input()
-    #     self.status_label.text=""
-        
-    def add_player_input(self, instance=None):
+    def add_player_input(self, instance=None, text_to_set=""):
         """
         Cria um novo TextInput para cada nome de jogador e adiciona na tela
         """
-        if len(self.name_inputs) < 9: # Adiciona um limite máximo de jogadores
+        if len(self.name_inputs) < 10: # Adiciona um limite máximo de jogadores
             new_input = TextInput(
+                text=text_to_set,
                 hint_text=f"Jogador {len(self.name_inputs) + 1}",
                 size_hint_y=None,
                 height=200,
@@ -127,12 +119,16 @@ class SetupScreen(Screen):
         player_names = [widget.text.strip() for widget in self.name_inputs]
         
         if any(not name for name in player_names):
-            self.status_label.text = "Ao menos 3 jogadores devem ser adicionados"
+            self.status_label.text = "Todas caixas deves ser preenchidas"
             return     
     
         app = App.get_running_app()
         app.player_names = player_names
-        
         # Mudar para próxima tela
         self.manager.current = 'category'
    
+    def go_back(self, instance):
+       """
+       Essa função liga com o botão voltar
+       """
+       self.manager.current = "title"

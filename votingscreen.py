@@ -10,7 +10,7 @@ from kivy.clock import Clock
 class VotingScreen(Screen):
     def __init__(self, **kwargs):
         super(VotingScreen, self).__init__(**kwargs)
-        self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+        self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=40)
     
         self.title_label = Label(
             text='',
@@ -21,7 +21,7 @@ class VotingScreen(Screen):
             )
         self.title_label.bind(size=self.title_label.setter('text_size')) 
             
-        self.buttons_grid = GridLayout(cols=1, spacing=15, size_hint_y=None)
+        self.buttons_grid = GridLayout(cols=1, spacing=40, size_hint_y=None)
         self.buttons_grid.bind(minimum_height=self.buttons_grid.setter('height'))
                 
         self.main_layout.add_widget(self.title_label)
@@ -72,7 +72,7 @@ class VotingScreen(Screen):
                     text=player['name'],
                     font_size='40sp',
                     size_hint_y=None,
-                    height=70
+                    height=150
                     )
                 btn.bind(on_press=lambda instance, p=player: self.cast_vote(p))
                 self.buttons_grid.add_widget(btn)
