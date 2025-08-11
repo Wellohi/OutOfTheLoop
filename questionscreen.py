@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.widget import Widget # Import the generic Widget for spacing
 from kivy.clock import Clock
 import random
 
@@ -40,7 +41,12 @@ class QuestionScreen(Screen):
         self.main_layout.add_widget(Label(text='Pergunta para', font_size='25sp'))
         self.main_layout.add_widget(self.answerer_label)
         self.main_layout.add_widget(self.question_label)
+        
+        self.main_layout.add_widget(Widget()) 
+        
         self.main_layout.add_widget(navigation_layout)
+        
+        self.main_layout.add_widget(Widget(size_hint_y=None, height=20))
         
         self.add_widget(self.main_layout)
         

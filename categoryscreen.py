@@ -15,11 +15,11 @@ class CategoryScreen(Screen):
         
         title_label = Label(text="Configurações do Jogo", font_size='30sp', bold=True)
 
-        category_label = Label(text="Escolha uma Categoria", size_hint_y=None, height=30, font_size='30sp')
+        category_label = Label(text="Escolha uma Categoria", size_hint_y=None, height=30, font_size='40sp')
         self.category_grid = GridLayout(cols=2, spacing=30, size_hint_y=None) #, height=60
         self.category_grid.bind(minimum_height=self.category_grid.setter('height'))
         
-        rounds_label = Label(text="Rodadas de Perguntas", size_hint_y=None, height=30, font_size='30sp')
+        rounds_label = Label(text="Rodadas de Perguntas", size_hint_y=None, height=30, font_size='40sp')
         self.rounds_grid = GridLayout(cols=3, spacing=30, size_hint_y=None) #, height=60
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
         
@@ -36,7 +36,7 @@ class CategoryScreen(Screen):
                 size_hint_y=None,
                 height=80,
                 background_normal='', 
-                font_size='40sp'
+                font_size='30sp'
                 )
             btn.bind(on_press=self.select_category)
             self.category_buttons.append(btn)
@@ -54,17 +54,17 @@ class CategoryScreen(Screen):
             self.round_buttons.append(btn)
             self.rounds_grid.add_widget(btn)
             
-        bottom_layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
+        bottom_layout = BoxLayout(orientation='vertical', spacing=20, size_hint_y=None)
         bottom_layout.bind(minimum_height=bottom_layout.setter('height'))
         
         # Botão de voltar telas
         navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
         
-        back_button = Button(text="Voltar", font_size='30sp', size_hint_y=None, height=120)
+        back_button = Button(text="Voltar", font_size='30sp', size_hint_y=None, height=200)
         back_button.bind(on_press=self.go_back)
         
         # Botão para iniciar o jogo
-        continue_button = Button(text='Iniciar Jogo', font_size='30sp', size_hint_y=None, height=120)
+        continue_button = Button(text='Iniciar Jogo', font_size='30sp', size_hint_y=None, height=200)
         continue_button.bind(on_press=self.start_game_button_pressed)
         
         navigation_layout.add_widget(back_button)

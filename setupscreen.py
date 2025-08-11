@@ -21,7 +21,7 @@ class SetupScreen(Screen):
         Window.softinput_mode = 'below_target'
         # O layout principal vai manter todas as widgets
         # Uma BoxLayout vertical, então o widgets são adicionados de cima para baixo
-        main_layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
+        main_layout = BoxLayout(orientation='vertical', padding=30, spacing=20)
         # Criar as widgets necessárias
         # Título da label
         title_label = Label(text="Digite o nome dos jogadores", font_size='30sp', bold=True, size_hint_y=None, height=40)
@@ -29,22 +29,22 @@ class SetupScreen(Screen):
         # Um ScrollView é necessário caso haja muitos jogadores adicionados
         scroll_view = ScrollView(size_hint=(1,1))
         # Esse layout vai conter os TextInputs e vai se colocado dentro do ScrollView
-        self.names_layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
+        self.names_layout = BoxLayout(orientation='vertical', spacing=20, size_hint_y=None)
         # Essa linha é importante: Faz com que o layout cresça verticalmente enquanto as widgets são adicionadas
         self.names_layout.bind(minimum_height=self.names_layout.setter('height'))
         scroll_view.add_widget(self.names_layout)
         # Essa lista vai armazenar o objeto TextInput widget atual
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
-        button_layout = BoxLayout(size_hint_y=None, height=100, spacing=40)
-        add_button = Button(text='Adicionar Jogador', font_size='40sp')
+        button_layout = BoxLayout(size_hint_y=None, height=100, spacing=50)
+        add_button = Button(text='Adicionar Jogador', font_size='25sp')
         add_button.bind(on_press=self.add_player_input)
-        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='40sp') # Inicia desabilitado
+        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp') # Inicia desabilitado
         self.remove_button.bind(on_press=self.remove_player_input)
         button_layout.add_widget(add_button)
         button_layout.add_widget(self.remove_button)
         
-        navigation_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=100, spacing=40)
+        navigation_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=100, spacing=50)
         
         back_button = Button(text='Voltar', font_size='40sp')
         back_button.bind(on_press=self.go_back)

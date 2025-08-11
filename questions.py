@@ -112,7 +112,7 @@ game_questions = {
         "Esse transporte é mais usado para lazer ou trabalho?",
         "Você precisaria de proteção (capacete, cinto, colete) para usá-lo?",
         "Você acha que esse transporte pode ser perigoso para crianças?",
-        "Faria diferença direta na sua vida não poder usar mais esse transportew",
+        "Faria diferença direta na sua vida não poder usar mais esse transporte?",
         "Se esse transporte fosse um animal, qual seria?",
         "Qual você acha que seria a personalidade desse transporte?",
         "Você acha que o Batman teria um veículo desse como um 'Bat-Transporte'?",  

@@ -16,11 +16,12 @@ class VotingScreen(Screen):
         self.title_label = Label(
             text='Hora da Votação',
             font_size='40sp',
-            # halign='center',
-            # valign='middle',
             bold=True,
-            size_hint_y=0.2
+            size_hint_y=None,
+            halign='center',
+            valign='middle'
             )
+        self.title_label.bind(size=self.title_label.setter('text_size'))        
         
         grid_container = BoxLayout(orientation='vertical', size_hint=(0.8, 0.6), pos_hint={'center_x': 0.5})
         

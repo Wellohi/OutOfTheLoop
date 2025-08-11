@@ -13,7 +13,7 @@ class TitleScreen(Screen):
         
         # Um layout simples para mostrar o titulo fo jogo
         title_label = Label(text="Out of the Loop", font_size='50sp', bold=True)
-        start_button = Button(text='Iniciar Jogo', font_size='40sp', size_hint=(1, None), height=100)
+        start_button = Button(text='Iniciar Jogo', font_size='40sp', size_hint=(1, None), height=200)
         start_button.bind(on_press=self.go_to_setup)
         
         # Usa espaços flexiveis para centralizar o título
