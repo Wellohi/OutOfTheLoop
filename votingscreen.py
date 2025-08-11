@@ -3,6 +3,7 @@ from kivy.uix.boxlayout import BoxLayout    # The layout to arrange widgets
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label            # For displaying text
 from kivy.uix.button import Button          # For buttons
+from kivy.uix.widget import Widget # Import the generic Widget for spacing
 from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 
@@ -13,19 +14,26 @@ class VotingScreen(Screen):
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=40)
     
         self.title_label = Label(
-            text='',
-            font_size='25sp',
-            halign='center',
-            valign='middle',
-            bold=True
+            text='Hora da Votação',
+            font_size='40sp',
+            # halign='center',
+            # valign='middle',
+            bold=True,
+            size_hint_y=0.2
             )
-        self.title_label.bind(size=self.title_label.setter('text_size')) 
-            
-        self.buttons_grid = GridLayout(cols=1, spacing=40, size_hint_y=None)
-        self.buttons_grid.bind(minimum_height=self.buttons_grid.setter('height'))
-                
-        self.main_layout.add_widget(self.title_label)
-        self.main_layout.add_widget(self.buttons_grid)
+        
+        grid_container = BoxLayout(orientation='vertical', size_hint=(0.8, 0.6), pos_hint={'center_x': 0.5})
+        
+        self.buttons_grid = GridLayout(cols=1, spacing=40)
+        
+        grid_container.add_widget(self.buttons_grid)
+        
+        self.main_layout.add_widget(self.title_label)          
+          
+        self.main_layout.add_widget(Widget()) 
+        self.main_layout.add_widget(grid_container)
+        self.main_layout.add_widget(Widget())        
+        
         self.add_widget(self.main_layout)
         
         # Rastreamento do processo de votação

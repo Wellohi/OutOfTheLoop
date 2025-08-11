@@ -15,11 +15,11 @@ class CategoryScreen(Screen):
         
         title_label = Label(text="Configurações do Jogo", font_size='30sp', bold=True)
 
-        category_label = Label(text="Escolha uma Categoria", size_hint_y=None, height=30, font_size='25sp')
+        category_label = Label(text="Escolha uma Categoria", size_hint_y=None, height=30, font_size='30sp')
         self.category_grid = GridLayout(cols=2, spacing=30, size_hint_y=None) #, height=60
         self.category_grid.bind(minimum_height=self.category_grid.setter('height'))
         
-        rounds_label = Label(text="Rodadas de Perguntas", size_hint_y=None, height=30, font_size='25sp')
+        rounds_label = Label(text="Rodadas de Perguntas", size_hint_y=None, height=30, font_size='30sp')
         self.rounds_grid = GridLayout(cols=3, spacing=30, size_hint_y=None) #, height=60
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
         
@@ -34,9 +34,9 @@ class CategoryScreen(Screen):
             btn = Button(
                 text=category_name, 
                 size_hint_y=None,
-                height=70,
+                height=80,
                 background_normal='', 
-                font_size='20sp'
+                font_size='40sp'
                 )
             btn.bind(on_press=self.select_category)
             self.category_buttons.append(btn)
@@ -46,9 +46,9 @@ class CategoryScreen(Screen):
             btn = Button(
                 text=round_num, 
                 size_hint_y=None,
-                height=70,
+                height=80,
                 background_normal='', 
-                font_size='20sp'
+                font_size='40sp'
                 )
             btn.bind(on_press=self.select_round)
             self.round_buttons.append(btn)

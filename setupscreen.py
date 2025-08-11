@@ -56,7 +56,17 @@ class SetupScreen(Screen):
         navigation_layout.add_widget(back_button)
         navigation_layout.add_widget(continue_button)
         
-        self.status_label = Label(text="", color=(1, 0, 0, 1), font_size='16sp', size_hint_y=None, height=50)
+        self.status_label = Label(
+            text="", 
+            color=(1, 0, 0, 1),
+            font_size='16sp',
+            size_hint_y=None, 
+            height=50,
+            halign='center',
+            valign='middle'
+            )
+        
+        self.status_label.bind(size=self.status_label.setter('text_size'))
         # Adicionar os widgets ao layout na ordem que queremos que apareça
         main_layout.add_widget(title_label)
         main_layout.add_widget(scroll_view)
