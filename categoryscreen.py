@@ -13,13 +13,37 @@ class CategoryScreen(Screen):
         super(CategoryScreen, self).__init__(**kwargs)
         main_layout = BoxLayout(orientation='vertical', padding=20, spacing=35)
         
-        title_label = Label(text="Configurações do Jogo", font_size='30sp', bold=True)
+        title_label = Label(
+            text="Configurações do Jogo",
+            font_size='30sp',
+            bold=True,
+            halign='center',
+            valign='middle'
+            )
 
-        category_label = Label(text="Escolha uma Categoria", size_hint_y=None, height=30, font_size='40sp')
+        category_label = Label(
+            text="Escolha uma Categoria",
+            size_hint_y=None,
+            height=30,
+            font_size='40sp',
+            halign='center',
+            valign='middle',
+            )
+        category_label.bind(size=category_label.setter('text_size'))
+        
         self.category_grid = GridLayout(cols=2, spacing=30, size_hint_y=None) #, height=60
         self.category_grid.bind(minimum_height=self.category_grid.setter('height'))
         
-        rounds_label = Label(text="Rodadas de Perguntas", size_hint_y=None, height=30, font_size='40sp')
+        rounds_label = Label(
+            text="Rodadas de Perguntas",
+            size_hint_y=None,
+            height=30,
+            font_size='40sp',
+            halign='center',
+            valign='middle',
+            )
+        rounds_label.bind(size=rounds_label.setter('text_size'))
+
         self.rounds_grid = GridLayout(cols=3, spacing=30, size_hint_y=None) #, height=60
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
         
@@ -36,8 +60,11 @@ class CategoryScreen(Screen):
                 size_hint_y=None,
                 height=80,
                 background_normal='', 
-                font_size='30sp'
+                font_size='30sp',
+                halign='center',
+                valign='middle'
                 )
+            btn.bind(size=btn.setter('text_size'))
             btn.bind(on_press=self.select_category)
             self.category_buttons.append(btn)
             self.category_grid.add_widget(btn)
@@ -48,8 +75,11 @@ class CategoryScreen(Screen):
                 size_hint_y=None,
                 height=80,
                 background_normal='', 
-                font_size='40sp'
+                font_size='40sp',
+                halign='center',
+                valign='middle'
                 )
+            btn.bind(size=btn.setter('text_size'))
             btn.bind(on_press=self.select_round)
             self.round_buttons.append(btn)
             self.rounds_grid.add_widget(btn)
@@ -60,17 +90,40 @@ class CategoryScreen(Screen):
         # Botão de voltar telas
         navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
         
-        back_button = Button(text="Voltar", font_size='30sp', size_hint_y=None, height=200)
+        back_button = Button(
+            text="Voltar",
+            font_size='30sp',
+            size_hint_y=None,
+            height=200,halign='center',
+            valign='middle'
+            )
+        back_button.bind(size=back_button.setter('text_size'))
         back_button.bind(on_press=self.go_back)
         
         # Botão para iniciar o jogo
-        continue_button = Button(text='Iniciar Jogo', font_size='30sp', size_hint_y=None, height=200)
+        continue_button = Button(
+            text='Iniciar Jogo',
+            font_size='30sp',
+            size_hint_y=None,
+            height=200,
+            halign='center',
+            valign='middle'
+            )
+        continue_button.bind(size=continue_button.setter('text_size'))
         continue_button.bind(on_press=self.start_game_button_pressed)
         
         navigation_layout.add_widget(back_button)
         navigation_layout.add_widget(continue_button)
         
-        self.status_label = Label(text="", color=(1,0,0,1), font_size='16sp', size_hint_y=None, height=30)
+        self.status_label = Label(
+            text="", 
+            color=(1,0,0,1), 
+            font_size='16sp', 
+            size_hint_y=None, 
+            halign='center',
+            valign='middle',
+            height=30
+            )
         
         bottom_layout.add_widget(self.status_label)
         bottom_layout.add_widget(navigation_layout)

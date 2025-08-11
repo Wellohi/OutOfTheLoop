@@ -11,13 +11,38 @@ class ResultsScreen(Screen):
     def __init__(self, **kwargs):
         super(ResultsScreen, self).__init__(**kwargs)
         self.main_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        self.title_label = Label(text="Os resultados são...", font_size='40sp', bold=True)
-        self.result_label = Label(text="", font_size='30sp', halign='center')
+        self.title_label = Label(
+            text="Os resultados são...",
+            font_size='40sp',
+            bold=True,
+            halign='center',
+            valign='middle'
+            )
+        self.title_label.bind(size=self.title_label.setter('text_size'))
+
+        self.result_label = Label(
+            text="",
+            font_size='30sp', 
+            halign='center',
+            valign='middle'
+            )
         # Cria dois botões separados para os dois estados.
-        self.reveal_impostor_button = Button(text = 'Mostrar Impostor', font_size='35sp')
+        self.reveal_impostor_button = Button(
+            text = 'Mostrar Impostor',
+            font_size='35sp',
+            halign='center',
+            valign='middle'
+            )
+        self.reveal_impostor_button.bind(size=self.reveal_impostor_button.setter('text_size'))
         self.reveal_impostor_button.bind(on_press=self.show_final_results)
         # Botão deJogar novamente
-        self.play_again_button = Button(text="Jogar Novamente", font_size='35sp')
+        self.play_again_button = Button(
+            text="Jogar Novamente",
+            font_size='35sp',
+            halign='center',
+            valign='middle'
+            )
+        self.play_again_button.bind(size=self.play_again_button.setter('text_size'))
         self.play_again_button.bind(on_press=self.play_again)
         
         self.main_layout.add_widget(self.title_label)
@@ -39,6 +64,7 @@ class ResultsScreen(Screen):
         
         # Cria o texto de resultado()
         result_text = f"O mais votado foi: \n\n[b]{app.most_voted_name}[/b]\n\n"
+
         self.result_label.text = result_text
         self.result_label.markup = True
         
@@ -63,6 +89,8 @@ class ResultsScreen(Screen):
             result_text += "O impostor venceu!"
             
         self.result_label.text = result_text
+        self.result_label.bind(size=self.result_label.setter('text_size'))
+        
 
         self.main_layout.remove_widget(self.reveal_impostor_button)
         self.main_layout.add_widget(self.play_again_button)

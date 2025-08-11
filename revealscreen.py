@@ -21,7 +21,13 @@ class RevealScreen(Screen):
         # Faz o texto se adaptar às bordas da tela
         self.info_label.bind(size=self.info_label.setter('text_size'))
         # Cria dois botões separados
-        self.action_button = Button(text="Toque para Revelar", font_size='30sp')
+        self.action_button = Button(
+            text="Toque para Revelar",
+            font_size='30sp',
+            halign='center',
+            valign='middle'
+            )
+        self.action_button.bind(size=self.action_button.setter('text_size'))
         self.action_button.bind(on_press=self.handle_action)
         
         self.layout.add_widget(self.info_label)
@@ -87,7 +93,7 @@ class RevealScreen(Screen):
                 self.info_label.text = f"[b]{word_info}[/b]"
                 
             self.info_label.markup = True # Diz ao label para processar as tags
-            self.action_button.text = "Aperte para esconder"
+            self.action_button.text = "Toque para esconder"
             self.word_is_hidden = False
             
         else:

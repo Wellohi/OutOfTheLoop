@@ -24,7 +24,17 @@ class SetupScreen(Screen):
         main_layout = BoxLayout(orientation='vertical', padding=30, spacing=20)
         # Criar as widgets necessárias
         # Título da label
-        title_label = Label(text="Digite o nome dos jogadores", font_size='30sp', bold=True, size_hint_y=None, height=40)
+        title_label = Label(
+            text="Digite o nome dos jogadores",
+            font_size='30sp', 
+            bold=True, 
+            size_hint_y=None, 
+            height=40,
+            halign='center',
+            valign='middle'
+            )
+        title_label.bind(size=title_label.setter('text_size'))
+        
         # --- Sessão Name Input Dinãmico --- #
         # Um ScrollView é necessário caso haja muitos jogadores adicionados
         scroll_view = ScrollView(size_hint=(1,1))
@@ -37,20 +47,28 @@ class SetupScreen(Screen):
         self.name_inputs = []
         # --- Botões Adicionar / Remover caixas --- #
         button_layout = BoxLayout(size_hint_y=None, height=100, spacing=50)
-        add_button = Button(text='Adicionar Jogador', font_size='25sp')
+        
+        
+        add_button = Button(text='Adicionar Jogador', font_size='25sp', halign='center' ,valign='middle')
+        add_button.bind(size=add_button.setter('text_size'))
         add_button.bind(on_press=self.add_player_input)
-        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp') # Inicia desabilitado
+        
+        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp', halign='center' ,valign='middle') # Inicia desabilitado
+        self.remove_button.bind(size=self.remove_button.setter('text_size'))
         self.remove_button.bind(on_press=self.remove_player_input)
+        
         button_layout.add_widget(add_button)
         button_layout.add_widget(self.remove_button)
         
         navigation_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=100, spacing=50)
         
-        back_button = Button(text='Voltar', font_size='40sp')
+        back_button = Button(text='Voltar', font_size='40sp', halign='center' ,valign='middle')
+        back_button.bind(size=back_button.setter('text_size'))
         back_button.bind(on_press=self.go_back)
         # --- Seleção de Categoria --- #
         # Um label e um spinner para escolher a categoria
-        continue_button = Button(text="Continuar", font_size='40sp')
+        continue_button = Button(text="Continuar", font_size='40sp', halign='center' ,valign='middle')
+        continue_button.bind(size=continue_button.setter('text_size'))
         continue_button.bind(on_press=self.proceed_to_category)
         
         navigation_layout.add_widget(back_button)
@@ -65,8 +83,8 @@ class SetupScreen(Screen):
             halign='center',
             valign='middle'
             )
-        
         self.status_label.bind(size=self.status_label.setter('text_size'))
+        
         # Adicionar os widgets ao layout na ordem que queremos que apareça
         main_layout.add_widget(title_label)
         main_layout.add_widget(scroll_view)

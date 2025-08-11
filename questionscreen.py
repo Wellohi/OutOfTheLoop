@@ -27,10 +27,22 @@ class QuestionScreen(Screen):
         
         navigation_layout = BoxLayout(orientation='horizontal', spacing=20, size_hint_y=None, height=100) 
         
-        self.back_button = Button(text='Pergunta Anterior', font_size='25sp', disabled=True)
+        self.back_button = Button(
+            text='Pergunta Anterior',
+            font_size='25sp',
+            disabled=True,
+            halign='center',
+            valign='middle')
+        self.back_button.bind(size=self.back_button.setter('text_size'))
         self.back_button.bind(on_press=self.previous_question)
         
-        self.next_button = Button(text='Próxima Pergunta', font_size='25sp')
+        self.next_button = Button(
+            text='Próxima Pergunta',
+            font_size='25sp',
+            halign='center',
+            valign='middle'
+            )
+        self.next_button.bind(size=self.next_button.setter('text_size'))
         self.next_button.bind(on_press=self.next_question)
         
         navigation_layout.add_widget(self.back_button)
