@@ -1,2 +1,0 @@
-1 - Botões de votação muito próiximos e pequenos
-2 - Perguntas de categoria não mudam após o término da rodada
