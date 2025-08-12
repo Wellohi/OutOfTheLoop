@@ -1,0 +1,7 @@
+{
+  "name": "outoftheloop",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
