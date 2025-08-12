@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
-# from kivy.clock import Clock
+from kivy.clock import Clock
 import random
 # Importa as telas do aplicativo de seus respectivos arquivos
 from titlescreen import TitleScreen
@@ -65,6 +65,18 @@ class OutOfTheLoopApp(App):
         self.impostor_name = None
         
         return self.sm
+    
+    def on_start(self):
+        """
+        Método chamado após a build(), é usado pra não ter bug de tela preta 
+        """
+        Clock.schedule_once(self.force_layout, 0.1)
+        
+    def force_layout(self, dt):
+        """
+        Esse método ajuda a forçar o screen manager a redesenhar o app
+        """
+        self.sm.do_layout()
         
     # Essa função é chamada quando o start_button é pressionado
     def start_game(self):

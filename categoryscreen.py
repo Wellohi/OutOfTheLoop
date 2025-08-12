@@ -4,6 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.uix.scrollview import ScrollView 
 from kivy.app import App
 from kivy.utils import get_color_from_hex
  
@@ -20,6 +21,9 @@ class CategoryScreen(Screen):
             halign='center',
             valign='middle'
             )
+        
+        scroll_content = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
+        scroll_content.bind(minimum_height=scroll_content.setter('height'))
 
         category_label = Label(
             text="Escolha uma Categoria",
@@ -44,14 +48,22 @@ class CategoryScreen(Screen):
             )
         rounds_label.bind(size=rounds_label.setter('text_size'))
 
-        self.rounds_grid = GridLayout(cols=3, spacing=30, size_hint_y=None) #, height=60
+        self.rounds_grid = GridLayout(cols=3, spacing=30, size_hint_y=None)
         self.rounds_grid.bind(minimum_height=self.rounds_grid.setter('height'))
+        
+        scroll_content.add_widget(category_label)
+        scroll_content.add_widget(self.category_grid)
+        scroll_content.add_widget(rounds_label)
+        scroll_content.add_widget(self.rounds_grid)
+        
+        scroll_view = ScrollView(size_hint=(1, 1))
+        scroll_view.add_widget(scroll_content)
         
         self.selected_category = None
         self.selected_round = None
         self.category_buttons = []
         self.round_buttons = []
-                
+       
         # Pega a lista da instancia main app para popular o spinner
         game_words = App.get_running_app().game_words
         for category_name in game_words.keys():
@@ -88,7 +100,7 @@ class CategoryScreen(Screen):
         bottom_layout.bind(minimum_height=bottom_layout.setter('height'))
         
         # Botão de voltar telas
-        navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
+        navigation_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=100)
         
         back_button = Button(
             text="Voltar",
@@ -129,11 +141,7 @@ class CategoryScreen(Screen):
         bottom_layout.add_widget(navigation_layout)
         
         main_layout.add_widget(title_label)
-        main_layout.add_widget(category_label)
-        main_layout.add_widget(self.category_grid)
-        main_layout.add_widget(rounds_label)
-        main_layout.add_widget(self.rounds_grid)
-        main_layout.add_widget(Widget())
+        main_layout.add_widget(scroll_view)
         main_layout.add_widget(bottom_layout)
         
         self.add_widget(main_layout)

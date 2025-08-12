@@ -29,9 +29,10 @@ class SetupScreen(Screen):
             font_size='30sp', 
             bold=True, 
             size_hint_y=None, 
-            height=40,
+            height=200,
             halign='center',
-            valign='middle'
+            valign='middle',
+            
             )
         title_label.bind(size=title_label.setter('text_size'))
         
@@ -49,11 +50,25 @@ class SetupScreen(Screen):
         button_layout = BoxLayout(size_hint_y=None, height=100, spacing=50)
         
         
-        add_button = Button(text='Adicionar Jogador', font_size='25sp', halign='center' ,valign='middle')
+        add_button = Button(
+            text='Adicionar Jogador',
+            font_size='25sp',
+            halign='center',
+            valign='middle',
+            size_hint_y=None,
+            height=150
+            )
         add_button.bind(size=add_button.setter('text_size'))
         add_button.bind(on_press=self.add_player_input)
         
-        self.remove_button = Button(text='Remover Jogador', disabled=True, font_size='25sp', halign='center' ,valign='middle') # Inicia desabilitado
+        self.remove_button = Button(
+            text='Remover Jogador',
+            disabled=True, font_size='25sp',
+            halign='center',
+            valign='middle',
+            size_hint_y=None,
+            height=150
+            ) # Inicia desabilitado
         self.remove_button.bind(size=self.remove_button.setter('text_size'))
         self.remove_button.bind(on_press=self.remove_player_input)
         

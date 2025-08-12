@@ -32,7 +32,10 @@ class QuestionScreen(Screen):
             font_size='25sp',
             disabled=True,
             halign='center',
-            valign='middle')
+            valign='middle',
+            size_hint_y=None,
+            height=150
+            )
         self.back_button.bind(size=self.back_button.setter('text_size'))
         self.back_button.bind(on_press=self.previous_question)
         
@@ -40,7 +43,9 @@ class QuestionScreen(Screen):
             text='Próxima Pergunta',
             font_size='25sp',
             halign='center',
-            valign='middle'
+            valign='middle',
+            size_hint_y=None,
+            height=150
             )
         self.next_button.bind(size=self.next_button.setter('text_size'))
         self.next_button.bind(on_press=self.next_question)
