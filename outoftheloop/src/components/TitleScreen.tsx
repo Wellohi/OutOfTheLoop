@@ -13,7 +13,7 @@ const TitleScreen: React.FC<TitleScreenProps> = ({ onStartGame }) => {
         <h1 className="text-5xl font-bold text-cyan-400">Out of the Loop</h1>
         <p className="text-lg mt-2 text-gray-400">Um jogo de palavras e suspeitos.</p>
       </div>
-      <IonButton onClick={onStartGame} expand="block" size="large" className="font-bold">
+      <IonButton onClick={onStartGame} expand="block" size="large" className="font-bold tall-button solo-button">
         Start Game
       </IonButton>
     </div>

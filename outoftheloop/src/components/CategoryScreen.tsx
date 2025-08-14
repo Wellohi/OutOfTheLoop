@@ -48,15 +48,15 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
             </div>
         </div>
 
-        <div className="flex gap-2 mt-4">
-            <IonButton onClick={onBack} expand="block" size="large" color="medium" className="font-bold w-1/3">
+        <div className="flex gap-2 mt-4 button-direction">
+            <IonButton onClick={onBack} expand="block" size="large" color="medium" className="font-bold w-1/3 tall-button">
                 Back
             </IonButton>
             <IonButton 
                 onClick={() => onStartGame(selectedCategory!, selectedRound!)}
                 expand="block" 
                 size="large" 
-                className="font-bold w-2/3"
+                className="font-bold w-2/3 tall-button"
                 disabled={!selectedCategory || !selectedRound}
             >
                 Start Game

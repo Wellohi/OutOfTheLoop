@@ -1,4 +1,4 @@
-export const game_words = {
+export const gameWords = {
     "Animal": [
         {"word": 'Leão', "desc": "Grande felino carnívoro, conhecido como o 'rei da selva'.",},
         {"word": 'Pato', "desc": "Ave aquática com bico achatado, comum em lagos e rios.",},
@@ -210,7 +210,7 @@ export const game_words = {
     ]
 };
 
-export const game_questions = {
+export const gameQuestions = {
     "Animal": [
         "Se você vir um desses na rua, o que você faria?",
         "Que tipo de chapéu / capacete esse animal usaria??",
@@ -334,21 +334,21 @@ export const game_questions = {
 
 export const setupGame = (playerNames, chosenCategory) => {
     const numPlayers = playerNames.length;
-    if (numPlayers < 3){
-        return null;
+    if (numPlayers < 3) {
+        return null; // Not enough players
     }
 
     const outOfLoopPlayerIndex = Math.floor(Math.random() * numPlayers);
-
-    const wrdsInCategory = gameWords[chosenCategory];
+    
+    const wordsInCategory = gameWords[chosenCategory];
     const secretWordObject = wordsInCategory[Math.floor(Math.random() * wordsInCategory.length)];
 
     const players = playerNames.map((name, index) => {
-        if (index === outOfLoopPlayerIndex){
+        if (index === outOfLoopPlayerIndex) {
             return {
                 name: name,
                 role: 'Out of the Loop',
-                word: 'Você está fora da rodada!\n Tente passar despercebido e descobrir a palavra.'
+                word: 'You are Out of the Loop!\nTry to blend in and guess the secret word.'
             };
         } else {
             return {
@@ -360,4 +360,4 @@ export const setupGame = (playerNames, chosenCategory) => {
     });
 
     return players;
-}
+};

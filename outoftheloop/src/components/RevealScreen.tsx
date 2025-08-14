@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { IonButton } from '@ionic/react';
-
-// Define the structure of our game state for better type safety
-interface Player {
-  name: string;
-  role: 'In the Group' | 'Out of the Loop';
-  word: { word: string; desc: string } | string;
-}
+import { Player, WordObject } from '../types'; // Import our new types
 
 interface RevealScreenProps {
   gameState: Player[];
@@ -39,11 +33,16 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
   };
 
   const renderWordInfo = () => {
-    if (typeof currentPlayer.word === 'object') {
+    // Type guard to check if the word is an object
+    const isWordObject = (word: WordObject | string): word is WordObject => {
+      return (word as WordObject).word !== undefined;
+    }
+
+    if (isWordObject(currentPlayer.word)) {
       // It's a regular player
       return (
         <>
-          <h2 className="text-2xl text-gray-400">Sua Palavra é:</h2>
+          <h2 className="text-2xl text-gray-400">Your word is:</h2>
           <p className="text-5xl font-bold text-cyan-400 my-4">{currentPlayer.word.word}</p>
           <p className="text-lg text-gray-500 italic">({currentPlayer.word.desc})</p>
         </>
@@ -59,14 +58,14 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
         {isWordHidden ? (
           <>
             <h2 className="text-4xl font-bold">{currentPlayer.name}</h2>
-            <p className="text-xl mt-2 text-gray-400">Sua vez, passe o telefone para ele.</p>
+            <p className="text-xl mt-2 text-gray-400">Sua vez! Passe o telefone para ele.</p>
           </>
         ) : (
           renderWordInfo()
         )}
       </div>
-      <IonButton onClick={handleNextAction} expand="block" size="large" className="font-bold">
-        {isWordHidden ? 'Toque para revelar' : (isLastPlayer ? 'Iniciar Jogo' : 'Toque para Esconder')}
+      <IonButton onClick={handleNextAction} expand="block" size="large" className="font-bold tall-button solo-button">
+        {isWordHidden ? 'Tap to Reveal' : (isLastPlayer ? 'Start Questions' : 'Tap to Hide')}
       </IonButton>
     </div>
   );
