@@ -10,7 +10,7 @@
     "test.e2e": "cypress run",
     "test.unit": "vitest",
     "lint": "eslint",
-    "postinstall": "chmod +x node_modules/.bin/vite && chmod +x node_modules/.bin/cap"
+    "postinstall": "chmod +x node_modules/.bin/vite && chmod +x node_modules/.bin/cap && chmod +x node_modules/@esbuild/linux-x64/bin/esbuild"
   },
   "dependencies": {
     "@capacitor/android": "^6.0.0",
