@@ -20,18 +20,11 @@
         <item name="android:background">@drawable/splash</item>
     </style>
     
-        <!-- Tema Splash Screen -->
     <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Cor de fundo do splash -->
-        <item name="android:windowBackground">@drawable/splash</item>
-
-        <!-- Cor da barra de status -->
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-
-        <!-- Oculta a barra de ação -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
-
 
 </resources>
