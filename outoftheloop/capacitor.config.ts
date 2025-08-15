@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'outoftheloop',
-  webDir: 'dist'
+  appId: 'com.mygame.outoftheloop',
+  appName: 'OutOfTheLoop',
+  webDir: 'build'
 };
 
 export default config;
