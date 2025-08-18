@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonButton } from '@ionic/react';
 
 interface ResultsScreenProps {
   mostVotedName: string;
   impostorName: string;
-  onRestart: () => void;
+  onContinue: () => void;
 }
 
-const ResultsScreen: React.FC<ResultsScreenProps> = ({ mostVotedName, impostorName, onRestart }) => {
-  // NEW: State to track if the final result is visible
+const ResultsScreen: React.FC<ResultsScreenProps> = ({ mostVotedName, impostorName, onContinue }) => {
   const [isRevealed, setIsRevealed] = useState(false);
+
+  useEffect(() => {
+    setIsRevealed(false);
+  }, [mostVotedName]);
 
   const handleReveal = () => {
     setIsRevealed(true);
@@ -23,26 +26,26 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ mostVotedName, impostorNa
         <h2 className="text-2xl text-gray-400">The group voted for:</h2>
         <p className="text-5xl font-bold my-2">{mostVotedName}</p>
         
-        {/* MODIFIED: Conditionally render the final result */}
         {isRevealed && (
           <>
             <h2 className="text-2xl text-gray-400 mt-8">The Impostor was:</h2>
             <p className="text-5xl font-bold my-2">{impostorName}</p>
 
-            <h1 className={`text-6xl font-extrabold mt-12 ${isCorrectGuess ? 'text-cyan-400' : 'text-rose-400'}`}>
-              {isCorrectGuess ? "The Group Wins!" : "The Impostor Wins!"}
+            {/* MODIFIED: The text is now just a status update, not the final result */}
+            <h1 className={`text-5xl font-extrabold mt-12 ${isCorrectGuess ? 'text-cyan-400' : 'text-rose-400'}`}>
+              {isCorrectGuess ? "The Impostor was caught!" : "The Impostor Escaped!"}
             </h1>
           </>
         )}
       </div>
       
-      {/* MODIFIED: Conditionally render the correct button */}
       {isRevealed ? (
-        <IonButton onClick={onRestart} expand="block" size="large" className="font-bold tall-button">
-          Play Again
+        // MODIFIED: The button now always says "Continue"
+        <IonButton onClick={onContinue} expand="block" size="large" className="font-bold tall-button solo-button">
+          Continue
         </IonButton>
       ) : (
-        <IonButton onClick={handleReveal} expand="block" size="large" className="font-bold tall-button">
+        <IonButton onClick={handleReveal} expand="block" size="large" className="font-bold tall-button solo-button">
           Reveal True Impostor
         </IonButton>
       )}

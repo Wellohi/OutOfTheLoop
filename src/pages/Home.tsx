@@ -11,6 +11,7 @@ import RevealScreen from '../components/RevealScreen';
 import QuestionScreen from '../components/QuestionScreen';
 import VotingScreen from '../components/VotingScreen';
 import ResultsScreen from '../components/ResultsScreen';
+import ImpostorGuessScreen from '../components/ImpostorGuessScreen';
 
 // --- Main Page Component ---
 
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
 
   const handleStartGame = () => setScreen('setup');
   const handleBackToTitle = () => {
-    setPlayers([]); // Clear players when going back to title
+    setPlayers([]);
     setScreen('title');
   };
   const handleBackToSetup = () => setScreen('setup');
@@ -46,13 +47,8 @@ const Home: React.FC = () => {
     setScreen('reveal');
   };
 
-  const handleRevealContinue = () => {
-    setScreen('question');
-  };
-
-  const handleQuestionContinue = () => {
-    setScreen('voting');
-  };
+  const handleRevealContinue = () => setScreen('question');
+  const handleQuestionContinue = () => setScreen('voting');
 
   const handleVotingComplete = (votes: { [key: string]: number }) => {
     const votedName = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
@@ -60,19 +56,21 @@ const Home: React.FC = () => {
     
     setMostVotedName(votedName);
     setImpostorName(impostor?.name || null);
-    
     setScreen('results');
   };
 
+  const handleResultsContinue = () => {
+    // This function now ALWAYS goes to the impostor guess screen.
+    setScreen('impostorGuess');
+  };
+
   const handleRestart = () => {
-    // Keep player names for the next round, but reset everything else
     setGameState(null);
     setNumRounds(0);
     setChosenCategory('');
     setQuestionPairs([]);
     setMostVotedName(null);
     setImpostorName(null);
-    // Go back to the category selection screen for a quick restart
     setScreen('category');
   };
   
@@ -116,8 +114,15 @@ const Home: React.FC = () => {
         return <ResultsScreen 
                   mostVotedName={mostVotedName!}
                   impostorName={impostorName!}
+                  onContinue={handleResultsContinue}
+               />;
+      case 'impostorGuess':
+        return <ImpostorGuessScreen
+                  gameState={gameState!}
+                  chosenCategory={chosenCategory}
+                  impostorName={impostorName!}
                   onRestart={handleRestart}
-               />
+               />;
       default:
         return <TitleScreen onStartGame={handleStartGame} />;
     }

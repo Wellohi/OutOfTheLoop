@@ -96,6 +96,7 @@ http://ionicframework.com/docs/theming/ */
 }
 
 .solo-button{
+  margin-top: 15%;
   margin-bottom: 45%;
 }
 
@@ -133,3 +134,7 @@ margin: 0 auto;
   flex-grow: 1; /* Allows the input to take up the remaining space */
 }
 
+.guess-button{
+  width: 50%;
+  margin: 0.625rem auto;
+}

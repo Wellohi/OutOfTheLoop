@@ -19,7 +19,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
         <h2 className="text-3xl font-bold text-center text-cyan-400 mb-4">Game Setup</h2>
         
         <div className="flex-grow">
-            <h3 className="text-xl font-semibold mb-2 text-gray-300">Choose a Category</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-300 text-center">Choose a Category</h3>
             <div className="grid grid-cols-2 gap-2">
                 {categories.map(cat => (
                     <IonButton 
@@ -33,7 +33,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
                 ))}
             </div>
 
-            <h3 className="text-xl font-semibold mt-6 mb-2 text-gray-300">Select Rounds</h3>
+            <h3 className="text-xl font-semibold mt-6 mb-2 text-gray-300 text-center">Select Rounds</h3>
             <div className="grid grid-cols-3 gap-2">
                 {rounds.map(round => (
                     <IonButton 
