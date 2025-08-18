@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.mygame.outoftheloop;
 
 import com.getcapacitor.BridgeActivity;
 
