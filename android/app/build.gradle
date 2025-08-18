@@ -1,61 +1,31 @@
-// In android/app/build.gradle
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-apply from: '../variables.gradle' 
-apply plugin: 'com.android.application'
-
-// --- ADD THIS ENTIRE BLOCK ---
-// This forces all parts of the project to use a specific version of the
-// AndroidX Core libraries, resolving the conflict with compileSdk 34.
-configurations.all {
-    resolutionStrategy {
-        force "androidx.core:core:1.12.0"
-        force "androidx.core:core-ktx:1.12.0"
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
     }
-}
-// --- END OF ADDITION ---
-
-android {
-    namespace "org.mygame.outoftheloop"
-    compileSdk project.compileSdkVersion
-    defaultConfig {
-        applicationId "org.mygame.outoftheloop"
-        minSdk project.minSdkVersion
-        targetSdk project.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    lintOptions {
-        abortOnError false
-    }
-    compileOptions {
-        sourceCompatibility project.sourceCompatibility
-        targetCompatibility project.targetCompatibility
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
-repositories {
-    flatDir{
-        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+// This is the crucial fix: It sets the Java version for all sub-projects,
+// including the Capacitor library, to prevent the "invalid source release" error.
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    // Force Java 17 for all Java compilation tasks
+    tasks.withType(JavaCompile).configureEach {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
-    implementation project(':capacitor-android')
-    testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
-    implementation project(':capacitor-cordova-android-plugins')
-}
-
-if (hasProperty('postBuildExtras')) {
-    postBuildExtras()
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

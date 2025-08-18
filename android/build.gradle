@@ -1,48 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-apply from: 'variables.gradle'
-
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1'
+        // --- MODIFIED: Upgraded the Android Gradle Plugin to a modern version ---
+        // This version is compatible with the SDK 35 required by Capacitor.
+        classpath 'com.android.tools.build:gradle:8.4.0'
         classpath 'com.google.gms:google-services:4.3.15'
-        // Se você usar Kotlin, adicione aqui também:
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10"
-
     }
 }
 
-// Repositórios para todos os subprojetos
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
-
-    tasks.withType(JavaCompile).configureEach {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            jvmTarget = "17"
-        }
-    }
-}
-
-subprojects {
-    tasks.withType(JavaCompile).configureEach {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
-// Limpeza do projeto
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
