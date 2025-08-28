@@ -43,3 +43,25 @@ cd outoftheloop
 ionic serve
 ```
 
+## Build da aplicação:
+
+*No diretório raiz*
+
+```
+ionic build
+```
+
+```
+npx cap sync android
+```
+
+*Entrar no diretório android*
+```
+cd android
+```
+
+*Iniciar build*
+```
+./gradlew assembleDebug
+```
+
