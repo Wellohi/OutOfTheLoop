@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  IonContent, 
   IonButton,
   IonInput,
   IonItem,
@@ -8,6 +7,7 @@ import {
   IonIcon
 } from '@ionic/react';
 import { addCircleOutline, trash } from 'ionicons/icons';
+import { Player } from '../types';
 
 interface SetupScreenProps {
   initialPlayers: string[];
@@ -40,62 +40,60 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ initialPlayers, onContinue, o
   };
 
   return (
-    <div className="flex flex-col h-full p-4 text-white">
-      <h2 className="text-3xl font-bold text-center text-cyan-400 mb-4">Enter Player Names</h2>
+    // Use Bootstrap's flexbox utilities for the main layout
+    <div className="d-flex flex-column vh-100 p-3 text-white">
+      <h2 className="text-center text-info mb-4 h3">Enter Player Names</h2>
       
-      <div className="flex-grow min-h-0">
-        <IonContent className="hide-scrollbar">
-          <IonList lines="none" className="bg-transparent">
-            {playerNames.map((name, index) => (
-              // --- MODIFIED: Each row is now a flex container ---
-              <IonItem key={index} className="mb-2 rounded-lg bg-gray-800 border border-gray-700">
-                <IonInput
-                  label={`Player ${index + 1}`}
-                  labelPlacement="stacked"
-                  value={name}
-                  onIonInput={(e) => handleNameChange(index, e.detail.value!)}
-                  className="text-white"
-                />
-                {playerNames.length > 3 && (
-                  // The slot="end" property positions the button correctly.
-                  <IonButton 
-                    slot="end" 
-                    fill="solid" 
-                    color="light" // Makes the button background white/light-grey
-                    onClick={() => removePlayer(index)}
-                    className="h-12 w-12 trash-button"
-                  >
-                    <IonIcon icon={trash} color="danger" className="text-2xl"/>
-                  </IonButton>
-                )}
-              </IonItem>
-            ))}
-          </IonList>
-          <IonButton 
-            expand="block" 
-            fill="outline" 
-            onClick={addPlayer} 
-            className="mt-4"
-            disabled={playerNames.length >= 10}
-          >
-            <IonIcon slot="start" icon={addCircleOutline} />
-            Add Player
-          </IonButton>
-        </IonContent>
+      {/* This div will grow to fill available space */}
+      <div className="flex-grow-1 overflow-auto">
+        <IonList lines="none" className="bg-transparent">
+          {playerNames.map((name, index) => (
+            <IonItem key={index} className="mb-2 rounded-lg custom-item">
+              <IonInput
+                label={`Player ${index + 1}`}
+                labelPlacement="stacked"
+                value={name}
+                onIonInput={(e) => handleNameChange(index, e.detail.value!)}
+                className="text-white"
+              />
+              {playerNames.length > 3 && (
+                <IonButton 
+                  slot="end" 
+                  fill="clear"
+                  onClick={() => removePlayer(index)}
+                >
+                  <IonIcon icon={trash} color="danger" style={{ fontSize: '24px' }}/>
+                </IonButton>
+              )}
+            </IonItem>
+          ))}
+        </IonList>
+
+        <IonButton 
+          expand="block" 
+          fill="outline" 
+          onClick={addPlayer} 
+          className="mt-3"
+          disabled={playerNames.length >= 10}
+        >
+          <IonIcon slot="start" icon={addCircleOutline} />
+          Add Player
+        </IonButton>
       </div>
       
-      <div className="flex gap-2 mt-4 button-direction">
-        <IonButton onClick={onBack} expand="block" size="large" color="medium" className="font-bold w-1/3 tall-button">
-          Back
-        </IonButton>
+      {/* Bottom navigation buttons */}
+      <div className="d-grid gap-2 mt-3">
         <IonButton 
           onClick={() => onContinue(playerNames)}
           expand="block" 
           size="large" 
-          className="font-bold w-2/3 tall-button"
+          className="fw-bold"
           disabled={playerNames.some(name => name.trim() === '')}
         >
           Continue
+        </IonButton>
+        <IonButton onClick={onBack} expand="block" color="medium" className="fw-bold">
+          Back
         </IonButton>
       </div>
     </div>
