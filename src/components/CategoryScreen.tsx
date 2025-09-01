@@ -20,11 +20,12 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
         
         <div className="flex-grow">
             <h3 className="text-xl font-semibold mb-2 text-gray-300 text-center">Choose a Category</h3>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid gap-2">
                 {categories.map(cat => (
                     <IonButton 
                         key={cat} 
                         onClick={() => setSelectedCategory(cat)}
+                        size="large" 
                         color={selectedCategory === cat ? 'primary' : 'medium'}
                         expand="block"
                     >
@@ -34,11 +35,12 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
             </div>
 
             <h3 className="text-xl font-semibold mt-6 mb-2 text-gray-300 text-center">Select Rounds</h3>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid gap-2">
                 {rounds.map(round => (
                     <IonButton 
                         key={round} 
                         onClick={() => setSelectedRound(round)}
+                        size="large" 
                         color={selectedRound === round ? 'primary' : 'medium'}
                         expand="block"
                     >
