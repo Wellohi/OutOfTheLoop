@@ -269,6 +269,10 @@ body.dark {
   margin-top: 20%;
 }
 
+.category-button{
+  font-size: small;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }

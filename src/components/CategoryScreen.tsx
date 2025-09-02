@@ -11,17 +11,26 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedRound, setSelectedRound] = useState<number | null>(null);
 
+  // This effect is not strictly necessary for this component version,
+  // but it's good practice to reset state when it becomes visible.
+  useEffect(() => {
+    setSelectedCategory(null);
+    setSelectedRound(null);
+  }, []);
+
+
   return (
     <div className="d-flex flex-column vh-100 p-3 text-white">
-      <h2 className="text-center text-info mb-3 h3">Game Setup</h2>
+      <h1 className="text-center text-info mb-3 h1">Game Setup</h1>
 
       <div className="flex-grow-1 overflow-auto">
-        <h3 className="h5 text-center mb-3">Choose a Category</h3>
-        <div className="row row-cols-2 g-2">
+        <h2 className="h2 text-center mb-3">Choose a Category</h2>
+        <div className="row row-cols-2 g-3"> {/* Increased gap for more spacing */}
           {Object.keys(gameWords).map((categoryName) => (
             <div className="col d-grid" key={categoryName}>
               <button
-                className={`btn ${selectedCategory === categoryName ? 'btn-primary' : 'btn-outline-primary'}`}
+                // MODIFIED: Added py-3 to make buttons taller
+                className={`btn py-3 ${selectedCategory === categoryName ? 'btn-primary' : 'btn-outline-primary'}`}
                 onClick={() => setSelectedCategory(categoryName)}
               >
                 {categoryName}
@@ -35,7 +44,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
           {[1, 2, 3].map((roundNum) => (
             <div className="col d-grid" key={roundNum}>
               <button
-                className={`btn ${selectedRound === roundNum ? 'btn-info' : 'btn-outline-info'}`}
+                // MODIFIED: Added py-3 to make buttons taller
+                className={`btn py-3 ${selectedRound === roundNum ? 'btn-info' : 'btn-outline-info'}`}
                 onClick={() => setSelectedRound(roundNum)}
               >
                 {roundNum}
@@ -64,3 +74,4 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
 };
 
 export default CategoryScreen;
+
