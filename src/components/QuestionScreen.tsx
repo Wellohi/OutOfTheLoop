@@ -61,9 +61,9 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
       
       {/* This container will grow to fill space, centering its content */}
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-        <p className="lead text-accent">Round {currentRound} of {numRounds}</p>
+        <p className="lead text-accent">Rodada {currentRound} de {numRounds}</p>
         <h2 className="display-5 fw-bold mt-3">{currentPair.asker}</h2>
-        <p className="lead my-2 text-accent">asks...</p>
+        <p className="lead my-2 text-accent">Pergunta Para</p>
         <h2 className="display-5 fw-bold">{currentPair.answerer}</h2>
         <p className="h4 text-info mt-4">"{question}"</p>
       </div>
@@ -75,7 +75,7 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
           size="large"
           className="fw-bold"
         >
-          {currentPairIndex === questionPairs.length - 1 ? 'Go to Voting' : 'Next Question'}
+          {currentPairIndex === questionPairs.length - 1 ? 'Go to Voting' : 'Próxima Pergunta'}
         </IonButton>
         <IonButton 
           onClick={handlePreviousQuestion}
@@ -84,7 +84,7 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
           className="fw-bold"
           disabled={currentPairIndex === 0}
         >
-          Previous
+          Pergunta Anterior
         </IonButton>
       </div>
     </div>

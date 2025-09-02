@@ -42,7 +42,7 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ initialPlayers, onContinue, o
   return (
     // Use Bootstrap's flexbox utilities for the main layout
     <div className="d-flex flex-column vh-100 p-3 text-white">
-      <h2 className="text-center text-info mb-4 h3">Enter Player Names</h2>
+      <h2 className="text-center text-info mb-4 h3">Insira o Nome dos Jogadores</h2>
       
       {/* This div will grow to fill available space */}
       <div className="flex-grow-1 overflow-auto">
@@ -50,7 +50,7 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ initialPlayers, onContinue, o
           {playerNames.map((name, index) => (
             <IonItem key={index} className="mb-2 rounded-lg custom-item">
               <IonInput
-                label={`Player ${index + 1}`}
+                label={`Jogador ${index + 1}`}
                 labelPlacement="stacked"
                 value={name}
                 onIonInput={(e) => handleNameChange(index, e.detail.value!)}
@@ -78,7 +78,7 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ initialPlayers, onContinue, o
           disabled={playerNames.length >= 10}
         >
           <IonIcon slot="start" icon={addCircleOutline} />
-          Add Player
+          Adicionar Jogador
         </IonButton>
       </div>
       
@@ -91,10 +91,10 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ initialPlayers, onContinue, o
           className="fw-bold"
           disabled={playerNames.some(name => name.trim() === '')}
         >
-          Continue
+          Próximo
         </IonButton>
         <IonButton onClick={onBack} expand="block" size="large" color="medium" className="fw-bold">
-          Back
+          Voltar
         </IonButton>
       </div>
     </div>

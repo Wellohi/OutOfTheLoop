@@ -49,7 +49,7 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
     if (isWordObject(currentPlayer.word)) {
       return (
         <>
-          <h2 className="h4 text-accent">Your word is:</h2>
+          <h2 className="h4 text-accent">A palavra é:</h2>
           <p className="h1 fw-bold text-info my-3">{currentPlayer.word.word}</p>
           <p className="text-accent fst-italic">({currentPlayer.word.desc})</p>
         </>
@@ -63,13 +63,13 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
         {!playerConfirmed ? (
           <>
-            <h2 className="h2 fw-bold">Pass the phone to</h2>
+            <h2 className="h2 fw-bold">Passe o Dispositivo Para</h2>
             <p className="h1 text-info my-3">{currentPlayer.name}</p>
           </>
         ) : isWordHidden ? (
           <>
             <h2 className="h2 fw-bold">{currentPlayer.name}</h2>
-            <p className="lead text-accent mt-2">Ready to see your word?</p>
+            <p className="lead text-accent mt-2">Pronto para ver a palavra?</p>
           </>
         ) : (
           renderWordInfo()
@@ -79,11 +79,11 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
       <div className="d-grid">
         {!playerConfirmed ? (
             <IonButton onClick={handleConfirmation} size="large" className="fw-bold">
-                I am {currentPlayer.name}
+                Eu sou {currentPlayer.name}
             </IonButton>
         ) : (
             <IonButton onClick={handleNextAction} size="large" className="fw-bold">
-                {isWordHidden ? 'Tap to Reveal' : (isLastPlayer ? 'Start Questions' : 'Tap to Hide')}
+                {isWordHidden ? 'Toque Para Revelar' : (isLastPlayer ? 'Iniciar Interrogatório' : 'Toque Para Esconder')}
             </IonButton>
         )}
       </div>

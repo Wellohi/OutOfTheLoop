@@ -25,18 +25,18 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ mostVotedName, impostorNa
   return (
     <div className="d-flex flex-column vh-100 p-4 text-white text-center">
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-        <h2 className="h4 text-accent">The group voted for:</h2>
+        <h2 className="h4 text-accent">O mais votado foi:</h2>
         <p className="display-4 fw-bold my-2">{mostVotedName}</p>
         
         {/* Conditionally render the final result after reveal */}
         {isRevealed && (
           <>
-            <h2 className="h4 text-accent mt-5">The Impostor was:</h2>
+            <h2 className="h4 text-accent mt-5">Mas na verdade o impostor era:</h2>
             <p className="display-4 fw-bold my-2">{impostorName}</p>
 
             {/* The win/loss message based on the vote */}
             <h1 className={`display-3 fw-bolder mt-5 ${isCorrectGuess ? 'text-info' : 'text-danger'}`}>
-              {isCorrectGuess ? "The Impostor was caught!" : "The group was wrong!"}
+              {isCorrectGuess ? "O impostor foi encontrado!" : "O impostor escapou!"}
             </h1>
           </>
         )}
@@ -46,11 +46,11 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ mostVotedName, impostorNa
       {isRevealed ? (
          // This button will always continue to the impostor's guess
         <IonButton onClick={onContinue} expand="block" size="large" className="fw-bold">
-          Continue
+          Próximo
         </IonButton>
       ) : (
         <IonButton onClick={handleReveal} expand="block" size="large" className="fw-bold">
-          Reveal True Impostor
+          Revelar Verdadeiro Impostor
         </IonButton>
       )}
     </div>

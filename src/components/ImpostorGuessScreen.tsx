@@ -47,15 +47,15 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
     return (
       <div className="d-flex flex-column vh-100 p-4 text-white text-center">
         <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-          <h2 className="text-2xl text-gray-400">The secret word was:</h2>
+          <h2 className="text-2xl text-gray-400">A palavra secreta era:</h2>
           <h1 className="text-5xl font-bold my-2 text-accent">{secretWord}</h1>
           <h1 className={`text-6xl font-extrabold mt-12 ${guessResult === 'correct' ? 'text-cyan-400' : 'text-rose-400'}`}>
-            {guessResult === 'correct' ? "Impostor Wins!" : "The Group Wins!"}
+            {guessResult === 'correct' ? "O impostor acertou!" : "O impostor errou!"}
           </h1>
         </div>
         <div className="row row-cols-1 g-2">
           <IonButton onClick={onRestart} expand="block" size="large" className="font-bold tall-button solo-button">
-            Play Again
+            Jogar Novamente
           </IonButton>
         </div>
       </div>
@@ -66,7 +66,7 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
     <div className="d-flex flex-column vh-100 p-4 text-white text-center">
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
         <h1 className="text-3xl font-bold">{impostorName}</h1>
-        <h2 className="text-xl mt-1 text-accent">Guess the secret word!</h2>
+        <h2 className="text-xl mt-1 text-accent">Qual era a palavra?</h2>
       </div>
       <div className="row row-cols-1 g-2">
         {wordChoices.map(({ word }) => (
@@ -90,7 +90,7 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
           className="font-bold solo-button"
           disabled={!selectedWord}
         >
-          Confirm Guess
+          Confirmar Escolha
         </IonButton>
       </div>
     </div>

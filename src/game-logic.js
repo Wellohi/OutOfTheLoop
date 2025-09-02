@@ -348,7 +348,7 @@ export const setupGame = (playerNames, chosenCategory) => {
             return {
                 name: name,
                 role: 'Out of the Loop',
-                word: 'You are Out of the Loop!\nTry to blend in and guess the secret word.'
+                word: 'Você Está Fora da Rodada! Tente se Misturar e Descobrir Qual é a Palavra.'
             };
         } else {
             return {

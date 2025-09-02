@@ -21,10 +21,10 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
 
   return (
     <div className="d-flex flex-column vh-100 p-3 text-white">
-      <h1 className="text-center text-info mb-3 h1">Game Setup</h1>
+      <h1 className="text-center text-info mb-3 h1">Configurar Jogo</h1>
 
       <div className="flex-grow-1 overflow-auto">
-        <h2 className="h2 text-center mb-3">Choose a Category</h2>
+        <h2 className="h2 text-center mb-3">Selecione a Categoria</h2>
         <div className="row row-cols-2 g-3"> {/* Increased gap for more spacing */}
           {Object.keys(gameWords).map((categoryName) => (
             <div className="col d-grid" key={categoryName}>
@@ -39,7 +39,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
           ))}
         </div>
 
-        <h3 className="h5 text-center mt-4 mb-3">Select Number of Question Rounds</h3>
+        <h2 className="h2 text-center mt-4 mb-3">Rodadas de Perguntas</h2>
         <div className="row row-cols-3 g-2">
           {[1, 2, 3].map((roundNum) => (
             <div className="col d-grid" key={roundNum}>
@@ -63,10 +63,10 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
           className="fw-bold"
           disabled={!selectedCategory || !selectedRound}
         >
-          Continue
+          Próximo
         </IonButton>
         <IonButton onClick={onBack} expand="block" size="large" color="medium" className="fw-bold">
-          Back
+          Voltar
         </IonButton>
       </div>
     </div>
