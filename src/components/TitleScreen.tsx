@@ -1,21 +1,23 @@
 import React from 'react';
 import { IonButton } from '@ionic/react';
 
-// Define the props that this component accepts
 interface TitleScreenProps {
   onStartGame: () => void;
 }
 
 const TitleScreen: React.FC<TitleScreenProps> = ({ onStartGame }) => {
   return (
-    <div className="flex flex-col h-full p-4 text-white">
-      <div className="flex-grow flex flex-col items-center justify-center text-center">
-        <h1 className="text-5xl font-bold text-cyan-400">Out of the Loop</h1>
-        <p className="text-lg mt-2 text-gray-400">Um jogo de palavras e suspeitos.</p>
+    <div className="d-flex flex-column vh-100 p-4 text-white text-center">
+      {/* This div will grow to push the content apart */}
+      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+        <h1 className="h1 fw-bold text-info">Out of the Loop</h1>
+        <p className="lead text-muted">A game of words and suspicion.</p>
       </div>
-      <IonButton onClick={onStartGame} expand="block" size="large" className="font-bold tall-button solo-button">
-        Start Game
-      </IonButton>
+      <div className="d-grid">
+        <IonButton onClick={onStartGame} size="large" className="fw-bold">
+          Start Game
+        </IonButton>
+      </div>
     </div>
   );
 };

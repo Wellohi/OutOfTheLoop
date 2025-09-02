@@ -20,13 +20,18 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
   const [questionDeck, setQuestionDeck] = useState<string[]>([]);
 
   useEffect(() => {
-    const questions = [...gameQuestions[chosenCategory]];
+    // A more robust way to handle potentially missing categories
+    const questionsForCategory = gameQuestions[chosenCategory] || [];
+    const questions = [...questionsForCategory];
+    
+    // Shuffle the array (Fisher-Yates shuffle)
     for (let i = questions.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [questions[i], questions[j]] = [questions[j], questions[i]];
     }
     setQuestionDeck(questions);
-  }, [chosenCategory]);
+    setCurrentPairIndex(0); // Reset index when category changes
+  }, [chosenCategory, questionPairs]); // Rerun effect if the pairs or category change
 
   const handleNextQuestion = () => {
     if (currentPairIndex < questionPairs.length - 1) {
@@ -43,7 +48,7 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
   };
 
   if (questionPairs.length === 0) {
-    return <div>Loading...</div>;
+    return <div className="p-4 text-white">Loading...</div>;
   }
 
   const currentPair = questionPairs[currentPairIndex];
@@ -52,45 +57,39 @@ const QuestionScreen: React.FC<QuestionScreenProps> = ({ questionPairs, chosenCa
   const question = questionDeck[currentPairIndex % questionDeck.length] || "No more unique questions!";
 
   return (
-    <div className="flex flex-col h-full p-4 text-white text-center">
-      {/* This container will now center all its content vertically */}
-      <div className="flex-grow flex flex-col items-center justify-center">
-        
-        {/* Text content block */}
-        <div className="flex-grow flex flex-col items-center justify-center">
-            <p className="text-xl text-gray-400">Round {currentRound} of {numRounds}</p>
-            <h2 className="text-4xl font-bold mt-4">{currentPair.asker}</h2>
-            <p className="text-lg my-2 text-gray-500">asks...</p>
-            <h2 className="text-4xl font-bold">{currentPair.answerer}</h2>
-            <p className="text-3xl font-semibold text-cyan-400 mt-8">"{question}"</p>
-        </div>
-        
-        {/* Button container with new sizing and spacing */}
-        <div className="w-full max-w-xs mb-8">
-          <div className="flex flex-col gap-4">
-            <IonButton 
-              onClick={handleNextQuestion} 
-              expand="block" 
-              // Using our new custom class from variables.css
-              className="tall-button"
-            >
-              {currentPairIndex === questionPairs.length - 1 ? 'Go to Voting' : 'Next Question'}
-            </IonButton>
-            <IonButton 
-              onClick={handlePreviousQuestion}
-              expand="block" 
-              color="medium"
-              // Using our new custom class from variables.css
-              className="tall-button"
-              disabled={currentPairIndex === 0}
-            >
-              Previous
-            </IonButton>
-          </div>
-        </div>
+    <div className="d-flex flex-column vh-100 p-4 text-white text-center">
+      
+      {/* This container will grow to fill space, centering its content */}
+      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+        <p className="lead text-muted">Round {currentRound} of {numRounds}</p>
+        <h2 className="display-5 fw-bold mt-3">{currentPair.asker}</h2>
+        <p className="lead my-2 text-muted">asks...</p>
+        <h2 className="display-5 fw-bold">{currentPair.answerer}</h2>
+        <p className="h4 text-info mt-4">"{question}"</p>
+      </div>
+      
+      {/* Button container */}
+      <div className="d-grid gap-3">
+        <IonButton 
+          onClick={handleNextQuestion} 
+          size="large"
+          className="fw-bold"
+        >
+          {currentPairIndex === questionPairs.length - 1 ? 'Go to Voting' : 'Next Question'}
+        </IonButton>
+        <IonButton 
+          onClick={handlePreviousQuestion}
+          size="large"
+          color="medium"
+          className="fw-bold"
+          disabled={currentPairIndex === 0}
+        >
+          Previous
+        </IonButton>
       </div>
     </div>
   );
 };
 
 export default QuestionScreen;
+

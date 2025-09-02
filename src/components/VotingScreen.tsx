@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonButton } from '@ionic/react';
 import { Player } from '../types';
 
@@ -10,12 +10,18 @@ interface VotingScreenProps {
 
 const VotingScreen: React.FC<VotingScreenProps> = ({ gameState, playerNames, onVotingComplete }) => {
   const [currentVoterIndex, setCurrentVoterIndex] = useState(0);
-  const [votes, setVotes] = useState<{ [key: string]: number }>(() => {
+  const [votes, setVotes] = useState<{ [key: string]: number }>({});
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  // Effect to reset the state when a new game starts
+  useEffect(() => {
     const initialVotes: { [key: string]: number } = {};
     playerNames.forEach(name => initialVotes[name] = 0);
-    return initialVotes;
-  });
-  const [showFeedback, setShowFeedback] = useState(false);
+    setVotes(initialVotes);
+    setCurrentVoterIndex(0);
+    setShowFeedback(false);
+  }, [playerNames]);
+
 
   const handleVote = (votedForName: string) => {
     const newVotes = { ...votes };
@@ -35,21 +41,26 @@ const VotingScreen: React.FC<VotingScreenProps> = ({ gameState, playerNames, onV
 
   if (showFeedback) {
     return (
-      <div className="flex flex-col h-full p-4 text-white items-center justify-center">
-        <h2 className="text-4xl font-bold text-cyan-400">Vote Registered!</h2>
+      <div className="d-flex flex-column vh-100 p-4 text-white align-items-center justify-content-center">
+        <h2 className="h2 fw-bold text-info">Vote Registered!</h2>
       </div>
     );
+  }
+
+  // Guard clause to prevent crash before playerNames is ready
+  if (!playerNames || playerNames.length === 0) {
+    return <div className="p-4 text-white">Loading voters...</div>;
   }
 
   const currentVoter = playerNames[currentVoterIndex];
 
   return (
-    <div className="flex flex-col h-full p-4 text-white">
+    <div className="d-flex flex-column vh-100 p-4 text-white">
       <div className="text-center">
-        <h2 className="text-3xl font-bold">{currentVoter}</h2>
-        <p className="text-xl mt-1 text-gray-400">Who is the Impostor?</p>
+        <h2 className="h3 fw-bold">{currentVoter}</h2>
+        <p className="lead mt-1 text-muted">Who is the Impostor?</p>
       </div>
-      <div className="flex-grow flex flex-col justify-center gap-4 mt-4">
+      <div className="flex-grow-1 d-grid gap-3 align-content-center mt-4">
         {gameState.map(player => {
           if (player.name === currentVoter) return null; // Can't vote for yourself
           return (
@@ -59,7 +70,7 @@ const VotingScreen: React.FC<VotingScreenProps> = ({ gameState, playerNames, onV
               expand="block"
               size="large"
               color="medium"
-              className="font-bold tall-button"
+              className="fw-bold"
             >
               {player.name}
             </IonButton>
@@ -71,3 +82,4 @@ const VotingScreen: React.FC<VotingScreenProps> = ({ gameState, playerNames, onV
 };
 
 export default VotingScreen;
+
