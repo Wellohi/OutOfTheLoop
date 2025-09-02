@@ -11,7 +11,7 @@ const TitleScreen: React.FC<TitleScreenProps> = ({ onStartGame }) => {
       {/* This div will grow to push the content apart */}
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
         <h1 className="h1 fw-bold text-info">Out of the Loop</h1>
-        <p className="lead text-muted">A game of words and suspicion.</p>
+        <p className="lead text-accent">A game of words and suspicion.</p>
       </div>
       <div className="d-grid">
         <IonButton onClick={onStartGame} size="large" className="fw-bold">

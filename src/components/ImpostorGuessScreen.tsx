@@ -24,11 +24,11 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
     const allWordsInCategory = gameWords[chosenCategory];
     // Filter out the secret word to get a list of incorrect options
     const incorrectWords = allWordsInCategory.filter(w => w.word !== secretWord);
-    
+
     // Shuffle the incorrect words and take the first 5
     const shuffledIncorrect = [...incorrectWords].sort(() => 0.5 - Math.random());
     const randomIncorrect = shuffledIncorrect.slice(0, 5);
-    
+
     // Create the final list of 6 choices and shuffle it again
     const finalChoices = [...randomIncorrect, secretWordObject].sort(() => 0.5 - Math.random());
     setWordChoices(finalChoices);
@@ -45,32 +45,35 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
 
   if (guessResult) {
     return (
-      <div className="flex flex-col h-full p-4 text-white text-center">
-        <div className="flex-grow flex flex-col items-center justify-center">
+      <div className="d-flex flex-column vh-100 p-4 text-white text-center">
+        <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
           <h2 className="text-2xl text-gray-400">The secret word was:</h2>
-          <p className="text-5xl font-bold my-2 text-cyan-400">{secretWord}</p>
+          <h1 className="text-5xl font-bold my-2 text-accent">{secretWord}</h1>
           <h1 className={`text-6xl font-extrabold mt-12 ${guessResult === 'correct' ? 'text-cyan-400' : 'text-rose-400'}`}>
             {guessResult === 'correct' ? "Impostor Wins!" : "The Group Wins!"}
           </h1>
         </div>
-        <IonButton onClick={onRestart} expand="block" size="large" className="font-bold tall-button solo-button">
-          Play Again
-        </IonButton>
+        <div className="row row-cols-1 g-2">
+          <IonButton onClick={onRestart} expand="block" size="large" className="font-bold tall-button solo-button">
+            Play Again
+          </IonButton>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-full p-4 text-white">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold">{impostorName}</h2>
-        <p className="text-xl mt-1 text-gray-400">Guess the secret word!</p>
+    <div className="d-flex flex-column vh-100 p-4 text-white text-center">
+      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+        <h1 className="text-3xl font-bold">{impostorName}</h1>
+        <h2 className="text-xl mt-1 text-accent">Guess the secret word!</h2>
       </div>
-      <div className="flex-grow grid gap-3 content-center mt-4">
+      <div className="row row-cols-1 g-2">
         {wordChoices.map(({ word }) => (
           <IonButton
             key={word}
             onClick={() => setSelectedWord(word)}
+            size='large'
             color={selectedWord === word ? 'primary' : 'medium'}
             className="font-bold guess-button"
           >
@@ -78,16 +81,18 @@ const ImpostorGuessScreen: React.FC<ImpostorGuessScreenProps> = ({ gameState, ch
           </IonButton>
         ))}
       </div>
-      {/* NEW: Confirm button that is disabled until a word is selected */}
-      <IonButton 
-        onClick={handleConfirmGuess} 
-        expand="block" 
-        size="large" 
-        className="font-bold tall-button solo-button"
-        disabled={!selectedWord}
-      >
-        Confirm Guess
-      </IonButton>
+      <div className="d-grid">
+        {/* NEW: Confirm button that is disabled until a word is selected */}
+        <IonButton
+          onClick={handleConfirmGuess}
+          expand="block"
+          size="large"
+          className="font-bold solo-button"
+          disabled={!selectedWord}
+        >
+          Confirm Guess
+        </IonButton>
+      </div>
     </div>
   );
 };

@@ -49,9 +49,9 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
     if (isWordObject(currentPlayer.word)) {
       return (
         <>
-          <h2 className="h4 text-muted">Your word is:</h2>
+          <h2 className="h4 text-accent">Your word is:</h2>
           <p className="h1 fw-bold text-info my-3">{currentPlayer.word.word}</p>
-          <p className="text-muted fst-italic">({currentPlayer.word.desc})</p>
+          <p className="text-accent fst-italic">({currentPlayer.word.desc})</p>
         </>
       );
     }
@@ -69,7 +69,7 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ gameState, onContinue }) =>
         ) : isWordHidden ? (
           <>
             <h2 className="h2 fw-bold">{currentPlayer.name}</h2>
-            <p className="lead text-muted mt-2">Ready to see your word?</p>
+            <p className="lead text-accent mt-2">Ready to see your word?</p>
           </>
         ) : (
           renderWordInfo()

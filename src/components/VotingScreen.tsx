@@ -58,7 +58,7 @@ const VotingScreen: React.FC<VotingScreenProps> = ({ gameState, playerNames, onV
     <div className="d-flex flex-column vh-100 p-4 text-white">
       <div className="text-center">
         <h2 className="h3 fw-bold">{currentVoter}</h2>
-        <p className="lead mt-1 text-muted">Who is the Impostor?</p>
+        <p className="lead mt-1 text-accent">Who is the Impostor?</p>
       </div>
       <div className="flex-grow-1 d-grid gap-3 align-content-center mt-4">
         {gameState.map(player => {

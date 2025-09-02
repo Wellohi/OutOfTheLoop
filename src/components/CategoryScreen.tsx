@@ -55,7 +55,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({ onStartGame, onBack }) 
         >
           Continue
         </IonButton>
-        <IonButton onClick={onBack} expand="block" color="medium" className="fw-bold">
+        <IonButton onClick={onBack} expand="block" size="large" color="medium" className="fw-bold">
           Back
         </IonButton>
       </div>
